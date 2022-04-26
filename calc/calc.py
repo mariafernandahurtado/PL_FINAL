@@ -43,21 +43,17 @@ tokens = list(reserved.values()) + [
     'LT', 'GT', 'LE', 'GE', 'EQ', 'NE', 'AUTORES', 'BLANKSPACE', 'MULTILINECOMMENT', 'COMMENT', 'RESERVADAS'
 ]
 
+
 # Tokens
-t_OR = r'\|'
-t_AND = r'\&'
-t_NOT = r'\~'
-t_XOR = r'\^'
-t_LOR = r'\|\|'
-t_LAND = r'\&\&'
-t_LNOT = r'\!'
+t_OR = r'\O\R'
+t_AND = r'\A\N\D'
+t_NOT = r'\N\O\T'
 t_LT = r'\<'
 t_GT = r'\>'
 t_LE = r'\<='
 t_GE = r'\>='
 t_EQ = r'\=='
-t_NE = r'\!='
-operadoraritmeticologico = t_OR+r'|'+t_AND+r'|'+t_NOT+r'|'+t_XOR+r'|'+t_LOR+r'|'+t_LAND+r'|'+t_LNOT+r'|'+t_LT+r'|'+t_GT+r'|'+t_LE+r'|'+t_GE+r'|'+t_EQ+r'|'+t_NE
+operadoraritmeticologico = t_OR+r'|'+t_AND+r'|'+t_NOT+r'|'+t_LT+r'|'+t_GT+r'|'+t_LE+r'|'+t_GE+r'|'+t_EQ+r'|'
 
 def t_NOMBRE(self,t):
     r'\#\#[A-Z][a-z]+\s[A-Z][a-z]+\s[A-Z][a-z]+\n'
@@ -86,7 +82,7 @@ def t_multilinecomment_end(self, t):
 def t_multilinecomment_lbrace(self, t):
     r'.*[^-->]'
 
-@TOKEN(operadoraritmeticologico)
+@lex.TOKEN(operadoraritmeticologico)
 def t_OPERADORARITMETICOLOGICO(self, t):
     return t
 
@@ -172,7 +168,7 @@ def p_statement_assign(p):
         names[p[1]] = p[4]
 
 def p_statement_expr(p):
-    'statement : expressionSR'
+    'statement : expressionSR || expressionSR OPERADORARITMETICOLOGICO expressionSR'
     print(p[1])
 
 def p_statement_sl(p):
@@ -246,6 +242,7 @@ def p_expression_name(p):
         p[0] = names[p[1]]
     except LookupError:
         print("Undefined name '%s'" % p[1])
+
 
 
 def p_error(p):
