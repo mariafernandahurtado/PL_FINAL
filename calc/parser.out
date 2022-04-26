@@ -1,54 +1,74 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
+Unused terminals:
+
+    ASIGNACION
+    SEPARADOR
+    SIMBOLO
+
 Grammar
 
 Rule 0     S' -> sentencias
 Rule 1     sentencias -> statement SALTO sentencias
 Rule 2     sentencias -> statement
-Rule 3     statement -> NAME ENTERO = expressionSR
-Rule 4     statement -> expressionSR
-Rule 5     statement -> <empty>
-Rule 6     expressionSR -> expressionSR + expressionMD
-Rule 7     expressionSR -> expressionSR - expressionMD
-Rule 8     expressionSR -> expressionMD
-Rule 9     expressionMD -> expressionMD * expression
-Rule 10    expressionMD -> expressionMD / expression
-Rule 11    expressionMD -> expression
-Rule 12    expression -> ( expressionSR )
-Rule 13    expression -> - expression
-Rule 14    expression -> + expression
-Rule 15    expression -> ENTERO
-Rule 16    expression -> DECIMAL
-Rule 17    expression -> HEXADECIMAL
-Rule 18    expression -> NOTCIENT
-Rule 19    expression -> OCTAL
-Rule 20    expression -> FCIENT ( expressionSR )
-Rule 21    expression -> NAME ENTERO
+Rule 3     statement -> VARTYPE ID
+Rule 4     statement -> VARTYPE ID = expressionSR
+Rule 5     statement -> ID = expressionSR
+Rule 6     statement -> expressionSR
+Rule 7     statement -> expressionLOG BOOLEANO expressionLOG
+Rule 8     expressionLOG -> expressionSR LT expressionSR
+Rule 9     expressionLOG -> expressionSR GT expressionSR
+Rule 10    statement -> <empty>
+Rule 11    expressionSR -> expressionSR + expressionMD
+Rule 12    expressionSR -> expressionSR - expressionMD
+Rule 13    expressionSR -> expressionMD
+Rule 14    expressionSR -> expressionLOG
+Rule 15    expressionMD -> expressionMD * expression
+Rule 16    expressionMD -> expressionMD / expression
+Rule 17    expressionMD -> expression
+Rule 18    expression -> ( expressionSR )
+Rule 19    expression -> - expression
+Rule 20    expression -> + expression
+Rule 21    expression -> ENTERO
+Rule 22    expression -> DECIMAL
+Rule 23    expression -> V_BOOLEAN
+Rule 24    expression -> NOTCIENT
+Rule 25    expression -> OCTAL
+Rule 26    expression -> FCIENT ( expressionSR )
+Rule 27    expression -> ID
 
 Terminals, with rules where they appear
 
-(                    : 12 20
-)                    : 12 20
-*                    : 9
-+                    : 6 14
--                    : 7 13
-/                    : 10
-=                    : 3
-DECIMAL              : 16
-ENTERO               : 3 15 21
-FCIENT               : 20
-HEXADECIMAL          : 17
-NAME                 : 3 21
-NOTCIENT             : 18
-OCTAL                : 19
+(                    : 18 26
+)                    : 18 26
+*                    : 15
++                    : 11 20
+-                    : 12 19
+/                    : 16
+=                    : 4 5
+ASIGNACION           : 
+BOOLEANO             : 7
+DECIMAL              : 22
+ENTERO               : 21
+FCIENT               : 26
+GT                   : 9
+ID                   : 3 4 5 27
+LT                   : 8
+NOTCIENT             : 24
+OCTAL                : 25
 SALTO                : 1
+SEPARADOR            : 
+SIMBOLO              : 
+VARTYPE              : 3 4
+V_BOOLEAN            : 23
 error                : 
 
 Nonterminals, with rules where they appear
 
-expression           : 9 10 11 13 14
-expressionMD         : 6 7 8 9 10
-expressionSR         : 3 4 6 7 12 20
+expression           : 15 16 17 19 20
+expressionLOG        : 7 7 14
+expressionMD         : 11 12 13 15 16
+expressionSR         : 4 5 6 8 8 9 9 11 12 18 26
 sentencias           : 1 0
 statement            : 1 2
 
@@ -59,44 +79,52 @@ state 0
     (0) S' -> . sentencias
     (1) sentencias -> . statement SALTO sentencias
     (2) sentencias -> . statement
-    (3) statement -> . NAME ENTERO = expressionSR
-    (4) statement -> . expressionSR
-    (5) statement -> .
-    (6) expressionSR -> . expressionSR + expressionMD
-    (7) expressionSR -> . expressionSR - expressionMD
-    (8) expressionSR -> . expressionMD
-    (9) expressionMD -> . expressionMD * expression
-    (10) expressionMD -> . expressionMD / expression
-    (11) expressionMD -> . expression
-    (12) expression -> . ( expressionSR )
-    (13) expression -> . - expression
-    (14) expression -> . + expression
-    (15) expression -> . ENTERO
-    (16) expression -> . DECIMAL
-    (17) expression -> . HEXADECIMAL
-    (18) expression -> . NOTCIENT
-    (19) expression -> . OCTAL
-    (20) expression -> . FCIENT ( expressionSR )
-    (21) expression -> . NAME ENTERO
+    (3) statement -> . VARTYPE ID
+    (4) statement -> . VARTYPE ID = expressionSR
+    (5) statement -> . ID = expressionSR
+    (6) statement -> . expressionSR
+    (7) statement -> . expressionLOG BOOLEANO expressionLOG
+    (10) statement -> .
+    (11) expressionSR -> . expressionSR + expressionMD
+    (12) expressionSR -> . expressionSR - expressionMD
+    (13) expressionSR -> . expressionMD
+    (14) expressionSR -> . expressionLOG
+    (8) expressionLOG -> . expressionSR LT expressionSR
+    (9) expressionLOG -> . expressionSR GT expressionSR
+    (15) expressionMD -> . expressionMD * expression
+    (16) expressionMD -> . expressionMD / expression
+    (17) expressionMD -> . expression
+    (18) expression -> . ( expressionSR )
+    (19) expression -> . - expression
+    (20) expression -> . + expression
+    (21) expression -> . ENTERO
+    (22) expression -> . DECIMAL
+    (23) expression -> . V_BOOLEAN
+    (24) expression -> . NOTCIENT
+    (25) expression -> . OCTAL
+    (26) expression -> . FCIENT ( expressionSR )
+    (27) expression -> . ID
 
-    NAME            shift and go to state 3
-    SALTO           reduce using rule 5 (statement -> .)
-    $end            reduce using rule 5 (statement -> .)
-    (               shift and go to state 10
-    -               shift and go to state 8
-    +               shift and go to state 6
-    ENTERO          shift and go to state 4
-    DECIMAL         shift and go to state 11
-    HEXADECIMAL     shift and go to state 12
-    NOTCIENT        shift and go to state 13
-    OCTAL           shift and go to state 14
-    FCIENT          shift and go to state 15
+    VARTYPE         shift and go to state 3
+    ID              shift and go to state 4
+    SALTO           reduce using rule 10 (statement -> .)
+    $end            reduce using rule 10 (statement -> .)
+    (               shift and go to state 11
+    -               shift and go to state 9
+    +               shift and go to state 7
+    ENTERO          shift and go to state 12
+    DECIMAL         shift and go to state 13
+    V_BOOLEAN       shift and go to state 14
+    NOTCIENT        shift and go to state 15
+    OCTAL           shift and go to state 16
+    FCIENT          shift and go to state 17
 
     sentencias                     shift and go to state 1
     statement                      shift and go to state 2
     expressionSR                   shift and go to state 5
-    expressionMD                   shift and go to state 7
-    expression                     shift and go to state 9
+    expressionLOG                  shift and go to state 6
+    expressionMD                   shift and go to state 8
+    expression                     shift and go to state 10
 
 state 1
 
@@ -109,628 +137,1008 @@ state 2
     (1) sentencias -> statement . SALTO sentencias
     (2) sentencias -> statement .
 
-    SALTO           shift and go to state 16
+    SALTO           shift and go to state 18
     $end            reduce using rule 2 (sentencias -> statement .)
 
 
 state 3
 
-    (3) statement -> NAME . ENTERO = expressionSR
-    (21) expression -> NAME . ENTERO
+    (3) statement -> VARTYPE . ID
+    (4) statement -> VARTYPE . ID = expressionSR
 
-    ENTERO          shift and go to state 17
+    ID              shift and go to state 19
 
 
 state 4
 
-    (15) expression -> ENTERO .
+    (5) statement -> ID . = expressionSR
+    (27) expression -> ID .
 
-    *               reduce using rule 15 (expression -> ENTERO .)
-    /               reduce using rule 15 (expression -> ENTERO .)
-    +               reduce using rule 15 (expression -> ENTERO .)
-    -               reduce using rule 15 (expression -> ENTERO .)
-    SALTO           reduce using rule 15 (expression -> ENTERO .)
-    $end            reduce using rule 15 (expression -> ENTERO .)
-    )               reduce using rule 15 (expression -> ENTERO .)
+    =               shift and go to state 20
+    *               reduce using rule 27 (expression -> ID .)
+    /               reduce using rule 27 (expression -> ID .)
+    +               reduce using rule 27 (expression -> ID .)
+    -               reduce using rule 27 (expression -> ID .)
+    LT              reduce using rule 27 (expression -> ID .)
+    GT              reduce using rule 27 (expression -> ID .)
+    SALTO           reduce using rule 27 (expression -> ID .)
+    $end            reduce using rule 27 (expression -> ID .)
 
 
 state 5
 
-    (4) statement -> expressionSR .
-    (6) expressionSR -> expressionSR . + expressionMD
-    (7) expressionSR -> expressionSR . - expressionMD
+    (6) statement -> expressionSR .
+    (11) expressionSR -> expressionSR . + expressionMD
+    (12) expressionSR -> expressionSR . - expressionMD
+    (8) expressionLOG -> expressionSR . LT expressionSR
+    (9) expressionLOG -> expressionSR . GT expressionSR
 
-    SALTO           reduce using rule 4 (statement -> expressionSR .)
-    $end            reduce using rule 4 (statement -> expressionSR .)
-    +               shift and go to state 18
-    -               shift and go to state 19
+    SALTO           reduce using rule 6 (statement -> expressionSR .)
+    $end            reduce using rule 6 (statement -> expressionSR .)
+    +               shift and go to state 21
+    -               shift and go to state 22
+    LT              shift and go to state 23
+    GT              shift and go to state 24
 
 
 state 6
 
-    (14) expression -> + . expression
-    (12) expression -> . ( expressionSR )
-    (13) expression -> . - expression
-    (14) expression -> . + expression
-    (15) expression -> . ENTERO
-    (16) expression -> . DECIMAL
-    (17) expression -> . HEXADECIMAL
-    (18) expression -> . NOTCIENT
-    (19) expression -> . OCTAL
-    (20) expression -> . FCIENT ( expressionSR )
-    (21) expression -> . NAME ENTERO
+    (7) statement -> expressionLOG . BOOLEANO expressionLOG
+    (14) expressionSR -> expressionLOG .
 
-    (               shift and go to state 10
-    -               shift and go to state 8
-    +               shift and go to state 6
-    ENTERO          shift and go to state 4
-    DECIMAL         shift and go to state 11
-    HEXADECIMAL     shift and go to state 12
-    NOTCIENT        shift and go to state 13
-    OCTAL           shift and go to state 14
-    FCIENT          shift and go to state 15
-    NAME            shift and go to state 21
+    BOOLEANO        shift and go to state 25
+    +               reduce using rule 14 (expressionSR -> expressionLOG .)
+    -               reduce using rule 14 (expressionSR -> expressionLOG .)
+    LT              reduce using rule 14 (expressionSR -> expressionLOG .)
+    GT              reduce using rule 14 (expressionSR -> expressionLOG .)
+    SALTO           reduce using rule 14 (expressionSR -> expressionLOG .)
+    $end            reduce using rule 14 (expressionSR -> expressionLOG .)
 
-    expression                     shift and go to state 20
 
 state 7
 
-    (8) expressionSR -> expressionMD .
-    (9) expressionMD -> expressionMD . * expression
-    (10) expressionMD -> expressionMD . / expression
+    (20) expression -> + . expression
+    (18) expression -> . ( expressionSR )
+    (19) expression -> . - expression
+    (20) expression -> . + expression
+    (21) expression -> . ENTERO
+    (22) expression -> . DECIMAL
+    (23) expression -> . V_BOOLEAN
+    (24) expression -> . NOTCIENT
+    (25) expression -> . OCTAL
+    (26) expression -> . FCIENT ( expressionSR )
+    (27) expression -> . ID
 
-    +               reduce using rule 8 (expressionSR -> expressionMD .)
-    -               reduce using rule 8 (expressionSR -> expressionMD .)
-    SALTO           reduce using rule 8 (expressionSR -> expressionMD .)
-    $end            reduce using rule 8 (expressionSR -> expressionMD .)
-    )               reduce using rule 8 (expressionSR -> expressionMD .)
-    *               shift and go to state 22
-    /               shift and go to state 23
+    (               shift and go to state 11
+    -               shift and go to state 9
+    +               shift and go to state 7
+    ENTERO          shift and go to state 12
+    DECIMAL         shift and go to state 13
+    V_BOOLEAN       shift and go to state 14
+    NOTCIENT        shift and go to state 15
+    OCTAL           shift and go to state 16
+    FCIENT          shift and go to state 17
+    ID              shift and go to state 27
 
+    expression                     shift and go to state 26
 
 state 8
 
-    (13) expression -> - . expression
-    (12) expression -> . ( expressionSR )
-    (13) expression -> . - expression
-    (14) expression -> . + expression
-    (15) expression -> . ENTERO
-    (16) expression -> . DECIMAL
-    (17) expression -> . HEXADECIMAL
-    (18) expression -> . NOTCIENT
-    (19) expression -> . OCTAL
-    (20) expression -> . FCIENT ( expressionSR )
-    (21) expression -> . NAME ENTERO
+    (13) expressionSR -> expressionMD .
+    (15) expressionMD -> expressionMD . * expression
+    (16) expressionMD -> expressionMD . / expression
 
-    (               shift and go to state 10
-    -               shift and go to state 8
-    +               shift and go to state 6
-    ENTERO          shift and go to state 4
-    DECIMAL         shift and go to state 11
-    HEXADECIMAL     shift and go to state 12
-    NOTCIENT        shift and go to state 13
-    OCTAL           shift and go to state 14
-    FCIENT          shift and go to state 15
-    NAME            shift and go to state 21
+    +               reduce using rule 13 (expressionSR -> expressionMD .)
+    -               reduce using rule 13 (expressionSR -> expressionMD .)
+    LT              reduce using rule 13 (expressionSR -> expressionMD .)
+    GT              reduce using rule 13 (expressionSR -> expressionMD .)
+    SALTO           reduce using rule 13 (expressionSR -> expressionMD .)
+    $end            reduce using rule 13 (expressionSR -> expressionMD .)
+    )               reduce using rule 13 (expressionSR -> expressionMD .)
+    BOOLEANO        reduce using rule 13 (expressionSR -> expressionMD .)
+    *               shift and go to state 28
+    /               shift and go to state 29
 
-    expression                     shift and go to state 24
 
 state 9
 
-    (11) expressionMD -> expression .
+    (19) expression -> - . expression
+    (18) expression -> . ( expressionSR )
+    (19) expression -> . - expression
+    (20) expression -> . + expression
+    (21) expression -> . ENTERO
+    (22) expression -> . DECIMAL
+    (23) expression -> . V_BOOLEAN
+    (24) expression -> . NOTCIENT
+    (25) expression -> . OCTAL
+    (26) expression -> . FCIENT ( expressionSR )
+    (27) expression -> . ID
 
-    *               reduce using rule 11 (expressionMD -> expression .)
-    /               reduce using rule 11 (expressionMD -> expression .)
-    +               reduce using rule 11 (expressionMD -> expression .)
-    -               reduce using rule 11 (expressionMD -> expression .)
-    SALTO           reduce using rule 11 (expressionMD -> expression .)
-    $end            reduce using rule 11 (expressionMD -> expression .)
-    )               reduce using rule 11 (expressionMD -> expression .)
+    (               shift and go to state 11
+    -               shift and go to state 9
+    +               shift and go to state 7
+    ENTERO          shift and go to state 12
+    DECIMAL         shift and go to state 13
+    V_BOOLEAN       shift and go to state 14
+    NOTCIENT        shift and go to state 15
+    OCTAL           shift and go to state 16
+    FCIENT          shift and go to state 17
+    ID              shift and go to state 27
 
+    expression                     shift and go to state 30
 
 state 10
 
-    (12) expression -> ( . expressionSR )
-    (6) expressionSR -> . expressionSR + expressionMD
-    (7) expressionSR -> . expressionSR - expressionMD
-    (8) expressionSR -> . expressionMD
-    (9) expressionMD -> . expressionMD * expression
-    (10) expressionMD -> . expressionMD / expression
-    (11) expressionMD -> . expression
-    (12) expression -> . ( expressionSR )
-    (13) expression -> . - expression
-    (14) expression -> . + expression
-    (15) expression -> . ENTERO
-    (16) expression -> . DECIMAL
-    (17) expression -> . HEXADECIMAL
-    (18) expression -> . NOTCIENT
-    (19) expression -> . OCTAL
-    (20) expression -> . FCIENT ( expressionSR )
-    (21) expression -> . NAME ENTERO
+    (17) expressionMD -> expression .
 
-    (               shift and go to state 10
-    -               shift and go to state 8
-    +               shift and go to state 6
-    ENTERO          shift and go to state 4
-    DECIMAL         shift and go to state 11
-    HEXADECIMAL     shift and go to state 12
-    NOTCIENT        shift and go to state 13
-    OCTAL           shift and go to state 14
-    FCIENT          shift and go to state 15
-    NAME            shift and go to state 21
+    *               reduce using rule 17 (expressionMD -> expression .)
+    /               reduce using rule 17 (expressionMD -> expression .)
+    +               reduce using rule 17 (expressionMD -> expression .)
+    -               reduce using rule 17 (expressionMD -> expression .)
+    LT              reduce using rule 17 (expressionMD -> expression .)
+    GT              reduce using rule 17 (expressionMD -> expression .)
+    SALTO           reduce using rule 17 (expressionMD -> expression .)
+    $end            reduce using rule 17 (expressionMD -> expression .)
+    )               reduce using rule 17 (expressionMD -> expression .)
+    BOOLEANO        reduce using rule 17 (expressionMD -> expression .)
 
-    expressionSR                   shift and go to state 25
-    expressionMD                   shift and go to state 7
-    expression                     shift and go to state 9
 
 state 11
 
-    (16) expression -> DECIMAL .
+    (18) expression -> ( . expressionSR )
+    (11) expressionSR -> . expressionSR + expressionMD
+    (12) expressionSR -> . expressionSR - expressionMD
+    (13) expressionSR -> . expressionMD
+    (14) expressionSR -> . expressionLOG
+    (15) expressionMD -> . expressionMD * expression
+    (16) expressionMD -> . expressionMD / expression
+    (17) expressionMD -> . expression
+    (8) expressionLOG -> . expressionSR LT expressionSR
+    (9) expressionLOG -> . expressionSR GT expressionSR
+    (18) expression -> . ( expressionSR )
+    (19) expression -> . - expression
+    (20) expression -> . + expression
+    (21) expression -> . ENTERO
+    (22) expression -> . DECIMAL
+    (23) expression -> . V_BOOLEAN
+    (24) expression -> . NOTCIENT
+    (25) expression -> . OCTAL
+    (26) expression -> . FCIENT ( expressionSR )
+    (27) expression -> . ID
 
-    *               reduce using rule 16 (expression -> DECIMAL .)
-    /               reduce using rule 16 (expression -> DECIMAL .)
-    +               reduce using rule 16 (expression -> DECIMAL .)
-    -               reduce using rule 16 (expression -> DECIMAL .)
-    SALTO           reduce using rule 16 (expression -> DECIMAL .)
-    $end            reduce using rule 16 (expression -> DECIMAL .)
-    )               reduce using rule 16 (expression -> DECIMAL .)
+    (               shift and go to state 11
+    -               shift and go to state 9
+    +               shift and go to state 7
+    ENTERO          shift and go to state 12
+    DECIMAL         shift and go to state 13
+    V_BOOLEAN       shift and go to state 14
+    NOTCIENT        shift and go to state 15
+    OCTAL           shift and go to state 16
+    FCIENT          shift and go to state 17
+    ID              shift and go to state 27
 
+    expressionSR                   shift and go to state 31
+    expressionMD                   shift and go to state 8
+    expressionLOG                  shift and go to state 32
+    expression                     shift and go to state 10
 
 state 12
 
-    (17) expression -> HEXADECIMAL .
+    (21) expression -> ENTERO .
 
-    *               reduce using rule 17 (expression -> HEXADECIMAL .)
-    /               reduce using rule 17 (expression -> HEXADECIMAL .)
-    +               reduce using rule 17 (expression -> HEXADECIMAL .)
-    -               reduce using rule 17 (expression -> HEXADECIMAL .)
-    SALTO           reduce using rule 17 (expression -> HEXADECIMAL .)
-    $end            reduce using rule 17 (expression -> HEXADECIMAL .)
-    )               reduce using rule 17 (expression -> HEXADECIMAL .)
+    *               reduce using rule 21 (expression -> ENTERO .)
+    /               reduce using rule 21 (expression -> ENTERO .)
+    +               reduce using rule 21 (expression -> ENTERO .)
+    -               reduce using rule 21 (expression -> ENTERO .)
+    LT              reduce using rule 21 (expression -> ENTERO .)
+    GT              reduce using rule 21 (expression -> ENTERO .)
+    SALTO           reduce using rule 21 (expression -> ENTERO .)
+    $end            reduce using rule 21 (expression -> ENTERO .)
+    )               reduce using rule 21 (expression -> ENTERO .)
+    BOOLEANO        reduce using rule 21 (expression -> ENTERO .)
 
 
 state 13
 
-    (18) expression -> NOTCIENT .
+    (22) expression -> DECIMAL .
 
-    *               reduce using rule 18 (expression -> NOTCIENT .)
-    /               reduce using rule 18 (expression -> NOTCIENT .)
-    +               reduce using rule 18 (expression -> NOTCIENT .)
-    -               reduce using rule 18 (expression -> NOTCIENT .)
-    SALTO           reduce using rule 18 (expression -> NOTCIENT .)
-    $end            reduce using rule 18 (expression -> NOTCIENT .)
-    )               reduce using rule 18 (expression -> NOTCIENT .)
+    *               reduce using rule 22 (expression -> DECIMAL .)
+    /               reduce using rule 22 (expression -> DECIMAL .)
+    +               reduce using rule 22 (expression -> DECIMAL .)
+    -               reduce using rule 22 (expression -> DECIMAL .)
+    LT              reduce using rule 22 (expression -> DECIMAL .)
+    GT              reduce using rule 22 (expression -> DECIMAL .)
+    SALTO           reduce using rule 22 (expression -> DECIMAL .)
+    $end            reduce using rule 22 (expression -> DECIMAL .)
+    )               reduce using rule 22 (expression -> DECIMAL .)
+    BOOLEANO        reduce using rule 22 (expression -> DECIMAL .)
 
 
 state 14
 
-    (19) expression -> OCTAL .
+    (23) expression -> V_BOOLEAN .
 
-    *               reduce using rule 19 (expression -> OCTAL .)
-    /               reduce using rule 19 (expression -> OCTAL .)
-    +               reduce using rule 19 (expression -> OCTAL .)
-    -               reduce using rule 19 (expression -> OCTAL .)
-    SALTO           reduce using rule 19 (expression -> OCTAL .)
-    $end            reduce using rule 19 (expression -> OCTAL .)
-    )               reduce using rule 19 (expression -> OCTAL .)
+    *               reduce using rule 23 (expression -> V_BOOLEAN .)
+    /               reduce using rule 23 (expression -> V_BOOLEAN .)
+    +               reduce using rule 23 (expression -> V_BOOLEAN .)
+    -               reduce using rule 23 (expression -> V_BOOLEAN .)
+    LT              reduce using rule 23 (expression -> V_BOOLEAN .)
+    GT              reduce using rule 23 (expression -> V_BOOLEAN .)
+    SALTO           reduce using rule 23 (expression -> V_BOOLEAN .)
+    $end            reduce using rule 23 (expression -> V_BOOLEAN .)
+    )               reduce using rule 23 (expression -> V_BOOLEAN .)
+    BOOLEANO        reduce using rule 23 (expression -> V_BOOLEAN .)
 
 
 state 15
 
-    (20) expression -> FCIENT . ( expressionSR )
+    (24) expression -> NOTCIENT .
 
-    (               shift and go to state 26
+    *               reduce using rule 24 (expression -> NOTCIENT .)
+    /               reduce using rule 24 (expression -> NOTCIENT .)
+    +               reduce using rule 24 (expression -> NOTCIENT .)
+    -               reduce using rule 24 (expression -> NOTCIENT .)
+    LT              reduce using rule 24 (expression -> NOTCIENT .)
+    GT              reduce using rule 24 (expression -> NOTCIENT .)
+    SALTO           reduce using rule 24 (expression -> NOTCIENT .)
+    $end            reduce using rule 24 (expression -> NOTCIENT .)
+    )               reduce using rule 24 (expression -> NOTCIENT .)
+    BOOLEANO        reduce using rule 24 (expression -> NOTCIENT .)
 
 
 state 16
 
-    (1) sentencias -> statement SALTO . sentencias
-    (1) sentencias -> . statement SALTO sentencias
-    (2) sentencias -> . statement
-    (3) statement -> . NAME ENTERO = expressionSR
-    (4) statement -> . expressionSR
-    (5) statement -> .
-    (6) expressionSR -> . expressionSR + expressionMD
-    (7) expressionSR -> . expressionSR - expressionMD
-    (8) expressionSR -> . expressionMD
-    (9) expressionMD -> . expressionMD * expression
-    (10) expressionMD -> . expressionMD / expression
-    (11) expressionMD -> . expression
-    (12) expression -> . ( expressionSR )
-    (13) expression -> . - expression
-    (14) expression -> . + expression
-    (15) expression -> . ENTERO
-    (16) expression -> . DECIMAL
-    (17) expression -> . HEXADECIMAL
-    (18) expression -> . NOTCIENT
-    (19) expression -> . OCTAL
-    (20) expression -> . FCIENT ( expressionSR )
-    (21) expression -> . NAME ENTERO
+    (25) expression -> OCTAL .
 
-    NAME            shift and go to state 3
-    SALTO           reduce using rule 5 (statement -> .)
-    $end            reduce using rule 5 (statement -> .)
-    (               shift and go to state 10
-    -               shift and go to state 8
-    +               shift and go to state 6
-    ENTERO          shift and go to state 4
-    DECIMAL         shift and go to state 11
-    HEXADECIMAL     shift and go to state 12
-    NOTCIENT        shift and go to state 13
-    OCTAL           shift and go to state 14
-    FCIENT          shift and go to state 15
+    *               reduce using rule 25 (expression -> OCTAL .)
+    /               reduce using rule 25 (expression -> OCTAL .)
+    +               reduce using rule 25 (expression -> OCTAL .)
+    -               reduce using rule 25 (expression -> OCTAL .)
+    LT              reduce using rule 25 (expression -> OCTAL .)
+    GT              reduce using rule 25 (expression -> OCTAL .)
+    SALTO           reduce using rule 25 (expression -> OCTAL .)
+    $end            reduce using rule 25 (expression -> OCTAL .)
+    )               reduce using rule 25 (expression -> OCTAL .)
+    BOOLEANO        reduce using rule 25 (expression -> OCTAL .)
 
-    statement                      shift and go to state 2
-    sentencias                     shift and go to state 27
-    expressionSR                   shift and go to state 5
-    expressionMD                   shift and go to state 7
-    expression                     shift and go to state 9
 
 state 17
 
-    (3) statement -> NAME ENTERO . = expressionSR
-    (21) expression -> NAME ENTERO .
+    (26) expression -> FCIENT . ( expressionSR )
 
-    =               shift and go to state 28
-    *               reduce using rule 21 (expression -> NAME ENTERO .)
-    /               reduce using rule 21 (expression -> NAME ENTERO .)
-    +               reduce using rule 21 (expression -> NAME ENTERO .)
-    -               reduce using rule 21 (expression -> NAME ENTERO .)
-    SALTO           reduce using rule 21 (expression -> NAME ENTERO .)
-    $end            reduce using rule 21 (expression -> NAME ENTERO .)
+    (               shift and go to state 33
 
 
 state 18
 
-    (6) expressionSR -> expressionSR + . expressionMD
-    (9) expressionMD -> . expressionMD * expression
-    (10) expressionMD -> . expressionMD / expression
-    (11) expressionMD -> . expression
-    (12) expression -> . ( expressionSR )
-    (13) expression -> . - expression
-    (14) expression -> . + expression
-    (15) expression -> . ENTERO
-    (16) expression -> . DECIMAL
-    (17) expression -> . HEXADECIMAL
-    (18) expression -> . NOTCIENT
-    (19) expression -> . OCTAL
-    (20) expression -> . FCIENT ( expressionSR )
-    (21) expression -> . NAME ENTERO
+    (1) sentencias -> statement SALTO . sentencias
+    (1) sentencias -> . statement SALTO sentencias
+    (2) sentencias -> . statement
+    (3) statement -> . VARTYPE ID
+    (4) statement -> . VARTYPE ID = expressionSR
+    (5) statement -> . ID = expressionSR
+    (6) statement -> . expressionSR
+    (7) statement -> . expressionLOG BOOLEANO expressionLOG
+    (10) statement -> .
+    (11) expressionSR -> . expressionSR + expressionMD
+    (12) expressionSR -> . expressionSR - expressionMD
+    (13) expressionSR -> . expressionMD
+    (14) expressionSR -> . expressionLOG
+    (8) expressionLOG -> . expressionSR LT expressionSR
+    (9) expressionLOG -> . expressionSR GT expressionSR
+    (15) expressionMD -> . expressionMD * expression
+    (16) expressionMD -> . expressionMD / expression
+    (17) expressionMD -> . expression
+    (18) expression -> . ( expressionSR )
+    (19) expression -> . - expression
+    (20) expression -> . + expression
+    (21) expression -> . ENTERO
+    (22) expression -> . DECIMAL
+    (23) expression -> . V_BOOLEAN
+    (24) expression -> . NOTCIENT
+    (25) expression -> . OCTAL
+    (26) expression -> . FCIENT ( expressionSR )
+    (27) expression -> . ID
 
-    (               shift and go to state 10
-    -               shift and go to state 8
-    +               shift and go to state 6
-    ENTERO          shift and go to state 4
-    DECIMAL         shift and go to state 11
-    HEXADECIMAL     shift and go to state 12
-    NOTCIENT        shift and go to state 13
-    OCTAL           shift and go to state 14
-    FCIENT          shift and go to state 15
-    NAME            shift and go to state 21
+    VARTYPE         shift and go to state 3
+    ID              shift and go to state 4
+    SALTO           reduce using rule 10 (statement -> .)
+    $end            reduce using rule 10 (statement -> .)
+    (               shift and go to state 11
+    -               shift and go to state 9
+    +               shift and go to state 7
+    ENTERO          shift and go to state 12
+    DECIMAL         shift and go to state 13
+    V_BOOLEAN       shift and go to state 14
+    NOTCIENT        shift and go to state 15
+    OCTAL           shift and go to state 16
+    FCIENT          shift and go to state 17
 
-    expressionMD                   shift and go to state 29
-    expression                     shift and go to state 9
+    statement                      shift and go to state 2
+    sentencias                     shift and go to state 34
+    expressionSR                   shift and go to state 5
+    expressionLOG                  shift and go to state 6
+    expressionMD                   shift and go to state 8
+    expression                     shift and go to state 10
 
 state 19
 
-    (7) expressionSR -> expressionSR - . expressionMD
-    (9) expressionMD -> . expressionMD * expression
-    (10) expressionMD -> . expressionMD / expression
-    (11) expressionMD -> . expression
-    (12) expression -> . ( expressionSR )
-    (13) expression -> . - expression
-    (14) expression -> . + expression
-    (15) expression -> . ENTERO
-    (16) expression -> . DECIMAL
-    (17) expression -> . HEXADECIMAL
-    (18) expression -> . NOTCIENT
-    (19) expression -> . OCTAL
-    (20) expression -> . FCIENT ( expressionSR )
-    (21) expression -> . NAME ENTERO
+    (3) statement -> VARTYPE ID .
+    (4) statement -> VARTYPE ID . = expressionSR
 
-    (               shift and go to state 10
-    -               shift and go to state 8
-    +               shift and go to state 6
-    ENTERO          shift and go to state 4
-    DECIMAL         shift and go to state 11
-    HEXADECIMAL     shift and go to state 12
-    NOTCIENT        shift and go to state 13
-    OCTAL           shift and go to state 14
-    FCIENT          shift and go to state 15
-    NAME            shift and go to state 21
+    SALTO           reduce using rule 3 (statement -> VARTYPE ID .)
+    $end            reduce using rule 3 (statement -> VARTYPE ID .)
+    =               shift and go to state 35
 
-    expressionMD                   shift and go to state 30
-    expression                     shift and go to state 9
 
 state 20
 
-    (14) expression -> + expression .
+    (5) statement -> ID = . expressionSR
+    (11) expressionSR -> . expressionSR + expressionMD
+    (12) expressionSR -> . expressionSR - expressionMD
+    (13) expressionSR -> . expressionMD
+    (14) expressionSR -> . expressionLOG
+    (15) expressionMD -> . expressionMD * expression
+    (16) expressionMD -> . expressionMD / expression
+    (17) expressionMD -> . expression
+    (8) expressionLOG -> . expressionSR LT expressionSR
+    (9) expressionLOG -> . expressionSR GT expressionSR
+    (18) expression -> . ( expressionSR )
+    (19) expression -> . - expression
+    (20) expression -> . + expression
+    (21) expression -> . ENTERO
+    (22) expression -> . DECIMAL
+    (23) expression -> . V_BOOLEAN
+    (24) expression -> . NOTCIENT
+    (25) expression -> . OCTAL
+    (26) expression -> . FCIENT ( expressionSR )
+    (27) expression -> . ID
 
-    *               reduce using rule 14 (expression -> + expression .)
-    /               reduce using rule 14 (expression -> + expression .)
-    +               reduce using rule 14 (expression -> + expression .)
-    -               reduce using rule 14 (expression -> + expression .)
-    SALTO           reduce using rule 14 (expression -> + expression .)
-    $end            reduce using rule 14 (expression -> + expression .)
-    )               reduce using rule 14 (expression -> + expression .)
+    (               shift and go to state 11
+    -               shift and go to state 9
+    +               shift and go to state 7
+    ENTERO          shift and go to state 12
+    DECIMAL         shift and go to state 13
+    V_BOOLEAN       shift and go to state 14
+    NOTCIENT        shift and go to state 15
+    OCTAL           shift and go to state 16
+    FCIENT          shift and go to state 17
+    ID              shift and go to state 27
 
+    expressionSR                   shift and go to state 36
+    expressionMD                   shift and go to state 8
+    expressionLOG                  shift and go to state 32
+    expression                     shift and go to state 10
 
 state 21
 
-    (21) expression -> NAME . ENTERO
+    (11) expressionSR -> expressionSR + . expressionMD
+    (15) expressionMD -> . expressionMD * expression
+    (16) expressionMD -> . expressionMD / expression
+    (17) expressionMD -> . expression
+    (18) expression -> . ( expressionSR )
+    (19) expression -> . - expression
+    (20) expression -> . + expression
+    (21) expression -> . ENTERO
+    (22) expression -> . DECIMAL
+    (23) expression -> . V_BOOLEAN
+    (24) expression -> . NOTCIENT
+    (25) expression -> . OCTAL
+    (26) expression -> . FCIENT ( expressionSR )
+    (27) expression -> . ID
 
-    ENTERO          shift and go to state 31
+    (               shift and go to state 11
+    -               shift and go to state 9
+    +               shift and go to state 7
+    ENTERO          shift and go to state 12
+    DECIMAL         shift and go to state 13
+    V_BOOLEAN       shift and go to state 14
+    NOTCIENT        shift and go to state 15
+    OCTAL           shift and go to state 16
+    FCIENT          shift and go to state 17
+    ID              shift and go to state 27
 
+    expressionMD                   shift and go to state 37
+    expression                     shift and go to state 10
 
 state 22
 
-    (9) expressionMD -> expressionMD * . expression
-    (12) expression -> . ( expressionSR )
-    (13) expression -> . - expression
-    (14) expression -> . + expression
-    (15) expression -> . ENTERO
-    (16) expression -> . DECIMAL
-    (17) expression -> . HEXADECIMAL
-    (18) expression -> . NOTCIENT
-    (19) expression -> . OCTAL
-    (20) expression -> . FCIENT ( expressionSR )
-    (21) expression -> . NAME ENTERO
+    (12) expressionSR -> expressionSR - . expressionMD
+    (15) expressionMD -> . expressionMD * expression
+    (16) expressionMD -> . expressionMD / expression
+    (17) expressionMD -> . expression
+    (18) expression -> . ( expressionSR )
+    (19) expression -> . - expression
+    (20) expression -> . + expression
+    (21) expression -> . ENTERO
+    (22) expression -> . DECIMAL
+    (23) expression -> . V_BOOLEAN
+    (24) expression -> . NOTCIENT
+    (25) expression -> . OCTAL
+    (26) expression -> . FCIENT ( expressionSR )
+    (27) expression -> . ID
 
-    (               shift and go to state 10
-    -               shift and go to state 8
-    +               shift and go to state 6
-    ENTERO          shift and go to state 4
-    DECIMAL         shift and go to state 11
-    HEXADECIMAL     shift and go to state 12
-    NOTCIENT        shift and go to state 13
-    OCTAL           shift and go to state 14
-    FCIENT          shift and go to state 15
-    NAME            shift and go to state 21
+    (               shift and go to state 11
+    -               shift and go to state 9
+    +               shift and go to state 7
+    ENTERO          shift and go to state 12
+    DECIMAL         shift and go to state 13
+    V_BOOLEAN       shift and go to state 14
+    NOTCIENT        shift and go to state 15
+    OCTAL           shift and go to state 16
+    FCIENT          shift and go to state 17
+    ID              shift and go to state 27
 
-    expression                     shift and go to state 32
+    expressionMD                   shift and go to state 38
+    expression                     shift and go to state 10
 
 state 23
 
-    (10) expressionMD -> expressionMD / . expression
-    (12) expression -> . ( expressionSR )
-    (13) expression -> . - expression
-    (14) expression -> . + expression
-    (15) expression -> . ENTERO
-    (16) expression -> . DECIMAL
-    (17) expression -> . HEXADECIMAL
-    (18) expression -> . NOTCIENT
-    (19) expression -> . OCTAL
-    (20) expression -> . FCIENT ( expressionSR )
-    (21) expression -> . NAME ENTERO
+    (8) expressionLOG -> expressionSR LT . expressionSR
+    (11) expressionSR -> . expressionSR + expressionMD
+    (12) expressionSR -> . expressionSR - expressionMD
+    (13) expressionSR -> . expressionMD
+    (14) expressionSR -> . expressionLOG
+    (15) expressionMD -> . expressionMD * expression
+    (16) expressionMD -> . expressionMD / expression
+    (17) expressionMD -> . expression
+    (8) expressionLOG -> . expressionSR LT expressionSR
+    (9) expressionLOG -> . expressionSR GT expressionSR
+    (18) expression -> . ( expressionSR )
+    (19) expression -> . - expression
+    (20) expression -> . + expression
+    (21) expression -> . ENTERO
+    (22) expression -> . DECIMAL
+    (23) expression -> . V_BOOLEAN
+    (24) expression -> . NOTCIENT
+    (25) expression -> . OCTAL
+    (26) expression -> . FCIENT ( expressionSR )
+    (27) expression -> . ID
 
-    (               shift and go to state 10
-    -               shift and go to state 8
-    +               shift and go to state 6
-    ENTERO          shift and go to state 4
-    DECIMAL         shift and go to state 11
-    HEXADECIMAL     shift and go to state 12
-    NOTCIENT        shift and go to state 13
-    OCTAL           shift and go to state 14
-    FCIENT          shift and go to state 15
-    NAME            shift and go to state 21
+    (               shift and go to state 11
+    -               shift and go to state 9
+    +               shift and go to state 7
+    ENTERO          shift and go to state 12
+    DECIMAL         shift and go to state 13
+    V_BOOLEAN       shift and go to state 14
+    NOTCIENT        shift and go to state 15
+    OCTAL           shift and go to state 16
+    FCIENT          shift and go to state 17
+    ID              shift and go to state 27
 
-    expression                     shift and go to state 33
+    expressionSR                   shift and go to state 39
+    expressionMD                   shift and go to state 8
+    expressionLOG                  shift and go to state 32
+    expression                     shift and go to state 10
 
 state 24
 
-    (13) expression -> - expression .
+    (9) expressionLOG -> expressionSR GT . expressionSR
+    (11) expressionSR -> . expressionSR + expressionMD
+    (12) expressionSR -> . expressionSR - expressionMD
+    (13) expressionSR -> . expressionMD
+    (14) expressionSR -> . expressionLOG
+    (15) expressionMD -> . expressionMD * expression
+    (16) expressionMD -> . expressionMD / expression
+    (17) expressionMD -> . expression
+    (8) expressionLOG -> . expressionSR LT expressionSR
+    (9) expressionLOG -> . expressionSR GT expressionSR
+    (18) expression -> . ( expressionSR )
+    (19) expression -> . - expression
+    (20) expression -> . + expression
+    (21) expression -> . ENTERO
+    (22) expression -> . DECIMAL
+    (23) expression -> . V_BOOLEAN
+    (24) expression -> . NOTCIENT
+    (25) expression -> . OCTAL
+    (26) expression -> . FCIENT ( expressionSR )
+    (27) expression -> . ID
 
-    *               reduce using rule 13 (expression -> - expression .)
-    /               reduce using rule 13 (expression -> - expression .)
-    +               reduce using rule 13 (expression -> - expression .)
-    -               reduce using rule 13 (expression -> - expression .)
-    SALTO           reduce using rule 13 (expression -> - expression .)
-    $end            reduce using rule 13 (expression -> - expression .)
-    )               reduce using rule 13 (expression -> - expression .)
+    (               shift and go to state 11
+    -               shift and go to state 9
+    +               shift and go to state 7
+    ENTERO          shift and go to state 12
+    DECIMAL         shift and go to state 13
+    V_BOOLEAN       shift and go to state 14
+    NOTCIENT        shift and go to state 15
+    OCTAL           shift and go to state 16
+    FCIENT          shift and go to state 17
+    ID              shift and go to state 27
 
+    expressionSR                   shift and go to state 40
+    expressionMD                   shift and go to state 8
+    expressionLOG                  shift and go to state 32
+    expression                     shift and go to state 10
 
 state 25
 
-    (12) expression -> ( expressionSR . )
-    (6) expressionSR -> expressionSR . + expressionMD
-    (7) expressionSR -> expressionSR . - expressionMD
+    (7) statement -> expressionLOG BOOLEANO . expressionLOG
+    (8) expressionLOG -> . expressionSR LT expressionSR
+    (9) expressionLOG -> . expressionSR GT expressionSR
+    (11) expressionSR -> . expressionSR + expressionMD
+    (12) expressionSR -> . expressionSR - expressionMD
+    (13) expressionSR -> . expressionMD
+    (14) expressionSR -> . expressionLOG
+    (15) expressionMD -> . expressionMD * expression
+    (16) expressionMD -> . expressionMD / expression
+    (17) expressionMD -> . expression
+    (18) expression -> . ( expressionSR )
+    (19) expression -> . - expression
+    (20) expression -> . + expression
+    (21) expression -> . ENTERO
+    (22) expression -> . DECIMAL
+    (23) expression -> . V_BOOLEAN
+    (24) expression -> . NOTCIENT
+    (25) expression -> . OCTAL
+    (26) expression -> . FCIENT ( expressionSR )
+    (27) expression -> . ID
 
-    )               shift and go to state 34
-    +               shift and go to state 18
-    -               shift and go to state 19
+    (               shift and go to state 11
+    -               shift and go to state 9
+    +               shift and go to state 7
+    ENTERO          shift and go to state 12
+    DECIMAL         shift and go to state 13
+    V_BOOLEAN       shift and go to state 14
+    NOTCIENT        shift and go to state 15
+    OCTAL           shift and go to state 16
+    FCIENT          shift and go to state 17
+    ID              shift and go to state 27
 
+    expressionLOG                  shift and go to state 41
+    expressionSR                   shift and go to state 42
+    expressionMD                   shift and go to state 8
+    expression                     shift and go to state 10
 
 state 26
 
-    (20) expression -> FCIENT ( . expressionSR )
-    (6) expressionSR -> . expressionSR + expressionMD
-    (7) expressionSR -> . expressionSR - expressionMD
-    (8) expressionSR -> . expressionMD
-    (9) expressionMD -> . expressionMD * expression
-    (10) expressionMD -> . expressionMD / expression
-    (11) expressionMD -> . expression
-    (12) expression -> . ( expressionSR )
-    (13) expression -> . - expression
-    (14) expression -> . + expression
-    (15) expression -> . ENTERO
-    (16) expression -> . DECIMAL
-    (17) expression -> . HEXADECIMAL
-    (18) expression -> . NOTCIENT
-    (19) expression -> . OCTAL
-    (20) expression -> . FCIENT ( expressionSR )
-    (21) expression -> . NAME ENTERO
+    (20) expression -> + expression .
 
-    (               shift and go to state 10
-    -               shift and go to state 8
-    +               shift and go to state 6
-    ENTERO          shift and go to state 4
-    DECIMAL         shift and go to state 11
-    HEXADECIMAL     shift and go to state 12
-    NOTCIENT        shift and go to state 13
-    OCTAL           shift and go to state 14
-    FCIENT          shift and go to state 15
-    NAME            shift and go to state 21
+    *               reduce using rule 20 (expression -> + expression .)
+    /               reduce using rule 20 (expression -> + expression .)
+    +               reduce using rule 20 (expression -> + expression .)
+    -               reduce using rule 20 (expression -> + expression .)
+    LT              reduce using rule 20 (expression -> + expression .)
+    GT              reduce using rule 20 (expression -> + expression .)
+    SALTO           reduce using rule 20 (expression -> + expression .)
+    $end            reduce using rule 20 (expression -> + expression .)
+    )               reduce using rule 20 (expression -> + expression .)
+    BOOLEANO        reduce using rule 20 (expression -> + expression .)
 
-    expressionSR                   shift and go to state 35
-    expressionMD                   shift and go to state 7
-    expression                     shift and go to state 9
 
 state 27
+
+    (27) expression -> ID .
+
+    *               reduce using rule 27 (expression -> ID .)
+    /               reduce using rule 27 (expression -> ID .)
+    +               reduce using rule 27 (expression -> ID .)
+    -               reduce using rule 27 (expression -> ID .)
+    LT              reduce using rule 27 (expression -> ID .)
+    GT              reduce using rule 27 (expression -> ID .)
+    SALTO           reduce using rule 27 (expression -> ID .)
+    $end            reduce using rule 27 (expression -> ID .)
+    )               reduce using rule 27 (expression -> ID .)
+    BOOLEANO        reduce using rule 27 (expression -> ID .)
+
+
+state 28
+
+    (15) expressionMD -> expressionMD * . expression
+    (18) expression -> . ( expressionSR )
+    (19) expression -> . - expression
+    (20) expression -> . + expression
+    (21) expression -> . ENTERO
+    (22) expression -> . DECIMAL
+    (23) expression -> . V_BOOLEAN
+    (24) expression -> . NOTCIENT
+    (25) expression -> . OCTAL
+    (26) expression -> . FCIENT ( expressionSR )
+    (27) expression -> . ID
+
+    (               shift and go to state 11
+    -               shift and go to state 9
+    +               shift and go to state 7
+    ENTERO          shift and go to state 12
+    DECIMAL         shift and go to state 13
+    V_BOOLEAN       shift and go to state 14
+    NOTCIENT        shift and go to state 15
+    OCTAL           shift and go to state 16
+    FCIENT          shift and go to state 17
+    ID              shift and go to state 27
+
+    expression                     shift and go to state 43
+
+state 29
+
+    (16) expressionMD -> expressionMD / . expression
+    (18) expression -> . ( expressionSR )
+    (19) expression -> . - expression
+    (20) expression -> . + expression
+    (21) expression -> . ENTERO
+    (22) expression -> . DECIMAL
+    (23) expression -> . V_BOOLEAN
+    (24) expression -> . NOTCIENT
+    (25) expression -> . OCTAL
+    (26) expression -> . FCIENT ( expressionSR )
+    (27) expression -> . ID
+
+    (               shift and go to state 11
+    -               shift and go to state 9
+    +               shift and go to state 7
+    ENTERO          shift and go to state 12
+    DECIMAL         shift and go to state 13
+    V_BOOLEAN       shift and go to state 14
+    NOTCIENT        shift and go to state 15
+    OCTAL           shift and go to state 16
+    FCIENT          shift and go to state 17
+    ID              shift and go to state 27
+
+    expression                     shift and go to state 44
+
+state 30
+
+    (19) expression -> - expression .
+
+    *               reduce using rule 19 (expression -> - expression .)
+    /               reduce using rule 19 (expression -> - expression .)
+    +               reduce using rule 19 (expression -> - expression .)
+    -               reduce using rule 19 (expression -> - expression .)
+    LT              reduce using rule 19 (expression -> - expression .)
+    GT              reduce using rule 19 (expression -> - expression .)
+    SALTO           reduce using rule 19 (expression -> - expression .)
+    $end            reduce using rule 19 (expression -> - expression .)
+    )               reduce using rule 19 (expression -> - expression .)
+    BOOLEANO        reduce using rule 19 (expression -> - expression .)
+
+
+state 31
+
+    (18) expression -> ( expressionSR . )
+    (11) expressionSR -> expressionSR . + expressionMD
+    (12) expressionSR -> expressionSR . - expressionMD
+    (8) expressionLOG -> expressionSR . LT expressionSR
+    (9) expressionLOG -> expressionSR . GT expressionSR
+
+    )               shift and go to state 45
+    +               shift and go to state 21
+    -               shift and go to state 22
+    LT              shift and go to state 23
+    GT              shift and go to state 24
+
+
+state 32
+
+    (14) expressionSR -> expressionLOG .
+
+    )               reduce using rule 14 (expressionSR -> expressionLOG .)
+    +               reduce using rule 14 (expressionSR -> expressionLOG .)
+    -               reduce using rule 14 (expressionSR -> expressionLOG .)
+    LT              reduce using rule 14 (expressionSR -> expressionLOG .)
+    GT              reduce using rule 14 (expressionSR -> expressionLOG .)
+    SALTO           reduce using rule 14 (expressionSR -> expressionLOG .)
+    $end            reduce using rule 14 (expressionSR -> expressionLOG .)
+    BOOLEANO        reduce using rule 14 (expressionSR -> expressionLOG .)
+
+
+state 33
+
+    (26) expression -> FCIENT ( . expressionSR )
+    (11) expressionSR -> . expressionSR + expressionMD
+    (12) expressionSR -> . expressionSR - expressionMD
+    (13) expressionSR -> . expressionMD
+    (14) expressionSR -> . expressionLOG
+    (15) expressionMD -> . expressionMD * expression
+    (16) expressionMD -> . expressionMD / expression
+    (17) expressionMD -> . expression
+    (8) expressionLOG -> . expressionSR LT expressionSR
+    (9) expressionLOG -> . expressionSR GT expressionSR
+    (18) expression -> . ( expressionSR )
+    (19) expression -> . - expression
+    (20) expression -> . + expression
+    (21) expression -> . ENTERO
+    (22) expression -> . DECIMAL
+    (23) expression -> . V_BOOLEAN
+    (24) expression -> . NOTCIENT
+    (25) expression -> . OCTAL
+    (26) expression -> . FCIENT ( expressionSR )
+    (27) expression -> . ID
+
+    (               shift and go to state 11
+    -               shift and go to state 9
+    +               shift and go to state 7
+    ENTERO          shift and go to state 12
+    DECIMAL         shift and go to state 13
+    V_BOOLEAN       shift and go to state 14
+    NOTCIENT        shift and go to state 15
+    OCTAL           shift and go to state 16
+    FCIENT          shift and go to state 17
+    ID              shift and go to state 27
+
+    expressionSR                   shift and go to state 46
+    expressionMD                   shift and go to state 8
+    expressionLOG                  shift and go to state 32
+    expression                     shift and go to state 10
+
+state 34
 
     (1) sentencias -> statement SALTO sentencias .
 
     $end            reduce using rule 1 (sentencias -> statement SALTO sentencias .)
 
 
-state 28
-
-    (3) statement -> NAME ENTERO = . expressionSR
-    (6) expressionSR -> . expressionSR + expressionMD
-    (7) expressionSR -> . expressionSR - expressionMD
-    (8) expressionSR -> . expressionMD
-    (9) expressionMD -> . expressionMD * expression
-    (10) expressionMD -> . expressionMD / expression
-    (11) expressionMD -> . expression
-    (12) expression -> . ( expressionSR )
-    (13) expression -> . - expression
-    (14) expression -> . + expression
-    (15) expression -> . ENTERO
-    (16) expression -> . DECIMAL
-    (17) expression -> . HEXADECIMAL
-    (18) expression -> . NOTCIENT
-    (19) expression -> . OCTAL
-    (20) expression -> . FCIENT ( expressionSR )
-    (21) expression -> . NAME ENTERO
-
-    (               shift and go to state 10
-    -               shift and go to state 8
-    +               shift and go to state 6
-    ENTERO          shift and go to state 4
-    DECIMAL         shift and go to state 11
-    HEXADECIMAL     shift and go to state 12
-    NOTCIENT        shift and go to state 13
-    OCTAL           shift and go to state 14
-    FCIENT          shift and go to state 15
-    NAME            shift and go to state 21
-
-    expressionSR                   shift and go to state 36
-    expressionMD                   shift and go to state 7
-    expression                     shift and go to state 9
-
-state 29
-
-    (6) expressionSR -> expressionSR + expressionMD .
-    (9) expressionMD -> expressionMD . * expression
-    (10) expressionMD -> expressionMD . / expression
-
-    +               reduce using rule 6 (expressionSR -> expressionSR + expressionMD .)
-    -               reduce using rule 6 (expressionSR -> expressionSR + expressionMD .)
-    SALTO           reduce using rule 6 (expressionSR -> expressionSR + expressionMD .)
-    $end            reduce using rule 6 (expressionSR -> expressionSR + expressionMD .)
-    )               reduce using rule 6 (expressionSR -> expressionSR + expressionMD .)
-    *               shift and go to state 22
-    /               shift and go to state 23
-
-
-state 30
-
-    (7) expressionSR -> expressionSR - expressionMD .
-    (9) expressionMD -> expressionMD . * expression
-    (10) expressionMD -> expressionMD . / expression
-
-    +               reduce using rule 7 (expressionSR -> expressionSR - expressionMD .)
-    -               reduce using rule 7 (expressionSR -> expressionSR - expressionMD .)
-    SALTO           reduce using rule 7 (expressionSR -> expressionSR - expressionMD .)
-    $end            reduce using rule 7 (expressionSR -> expressionSR - expressionMD .)
-    )               reduce using rule 7 (expressionSR -> expressionSR - expressionMD .)
-    *               shift and go to state 22
-    /               shift and go to state 23
-
-
-state 31
-
-    (21) expression -> NAME ENTERO .
-
-    *               reduce using rule 21 (expression -> NAME ENTERO .)
-    /               reduce using rule 21 (expression -> NAME ENTERO .)
-    +               reduce using rule 21 (expression -> NAME ENTERO .)
-    -               reduce using rule 21 (expression -> NAME ENTERO .)
-    SALTO           reduce using rule 21 (expression -> NAME ENTERO .)
-    $end            reduce using rule 21 (expression -> NAME ENTERO .)
-    )               reduce using rule 21 (expression -> NAME ENTERO .)
-
-
-state 32
-
-    (9) expressionMD -> expressionMD * expression .
-
-    *               reduce using rule 9 (expressionMD -> expressionMD * expression .)
-    /               reduce using rule 9 (expressionMD -> expressionMD * expression .)
-    +               reduce using rule 9 (expressionMD -> expressionMD * expression .)
-    -               reduce using rule 9 (expressionMD -> expressionMD * expression .)
-    SALTO           reduce using rule 9 (expressionMD -> expressionMD * expression .)
-    $end            reduce using rule 9 (expressionMD -> expressionMD * expression .)
-    )               reduce using rule 9 (expressionMD -> expressionMD * expression .)
-
-
-state 33
-
-    (10) expressionMD -> expressionMD / expression .
-
-    *               reduce using rule 10 (expressionMD -> expressionMD / expression .)
-    /               reduce using rule 10 (expressionMD -> expressionMD / expression .)
-    +               reduce using rule 10 (expressionMD -> expressionMD / expression .)
-    -               reduce using rule 10 (expressionMD -> expressionMD / expression .)
-    SALTO           reduce using rule 10 (expressionMD -> expressionMD / expression .)
-    $end            reduce using rule 10 (expressionMD -> expressionMD / expression .)
-    )               reduce using rule 10 (expressionMD -> expressionMD / expression .)
-
-
-state 34
-
-    (12) expression -> ( expressionSR ) .
-
-    *               reduce using rule 12 (expression -> ( expressionSR ) .)
-    /               reduce using rule 12 (expression -> ( expressionSR ) .)
-    +               reduce using rule 12 (expression -> ( expressionSR ) .)
-    -               reduce using rule 12 (expression -> ( expressionSR ) .)
-    SALTO           reduce using rule 12 (expression -> ( expressionSR ) .)
-    $end            reduce using rule 12 (expression -> ( expressionSR ) .)
-    )               reduce using rule 12 (expression -> ( expressionSR ) .)
-
-
 state 35
 
-    (20) expression -> FCIENT ( expressionSR . )
-    (6) expressionSR -> expressionSR . + expressionMD
-    (7) expressionSR -> expressionSR . - expressionMD
+    (4) statement -> VARTYPE ID = . expressionSR
+    (11) expressionSR -> . expressionSR + expressionMD
+    (12) expressionSR -> . expressionSR - expressionMD
+    (13) expressionSR -> . expressionMD
+    (14) expressionSR -> . expressionLOG
+    (15) expressionMD -> . expressionMD * expression
+    (16) expressionMD -> . expressionMD / expression
+    (17) expressionMD -> . expression
+    (8) expressionLOG -> . expressionSR LT expressionSR
+    (9) expressionLOG -> . expressionSR GT expressionSR
+    (18) expression -> . ( expressionSR )
+    (19) expression -> . - expression
+    (20) expression -> . + expression
+    (21) expression -> . ENTERO
+    (22) expression -> . DECIMAL
+    (23) expression -> . V_BOOLEAN
+    (24) expression -> . NOTCIENT
+    (25) expression -> . OCTAL
+    (26) expression -> . FCIENT ( expressionSR )
+    (27) expression -> . ID
 
-    )               shift and go to state 37
-    +               shift and go to state 18
-    -               shift and go to state 19
+    (               shift and go to state 11
+    -               shift and go to state 9
+    +               shift and go to state 7
+    ENTERO          shift and go to state 12
+    DECIMAL         shift and go to state 13
+    V_BOOLEAN       shift and go to state 14
+    NOTCIENT        shift and go to state 15
+    OCTAL           shift and go to state 16
+    FCIENT          shift and go to state 17
+    ID              shift and go to state 27
 
+    expressionSR                   shift and go to state 47
+    expressionMD                   shift and go to state 8
+    expressionLOG                  shift and go to state 32
+    expression                     shift and go to state 10
 
 state 36
 
-    (3) statement -> NAME ENTERO = expressionSR .
-    (6) expressionSR -> expressionSR . + expressionMD
-    (7) expressionSR -> expressionSR . - expressionMD
+    (5) statement -> ID = expressionSR .
+    (11) expressionSR -> expressionSR . + expressionMD
+    (12) expressionSR -> expressionSR . - expressionMD
+    (8) expressionLOG -> expressionSR . LT expressionSR
+    (9) expressionLOG -> expressionSR . GT expressionSR
 
-    SALTO           reduce using rule 3 (statement -> NAME ENTERO = expressionSR .)
-    $end            reduce using rule 3 (statement -> NAME ENTERO = expressionSR .)
-    +               shift and go to state 18
-    -               shift and go to state 19
+    SALTO           reduce using rule 5 (statement -> ID = expressionSR .)
+    $end            reduce using rule 5 (statement -> ID = expressionSR .)
+    +               shift and go to state 21
+    -               shift and go to state 22
+    LT              shift and go to state 23
+    GT              shift and go to state 24
 
 
 state 37
 
-    (20) expression -> FCIENT ( expressionSR ) .
+    (11) expressionSR -> expressionSR + expressionMD .
+    (15) expressionMD -> expressionMD . * expression
+    (16) expressionMD -> expressionMD . / expression
 
-    *               reduce using rule 20 (expression -> FCIENT ( expressionSR ) .)
-    /               reduce using rule 20 (expression -> FCIENT ( expressionSR ) .)
-    +               reduce using rule 20 (expression -> FCIENT ( expressionSR ) .)
-    -               reduce using rule 20 (expression -> FCIENT ( expressionSR ) .)
-    SALTO           reduce using rule 20 (expression -> FCIENT ( expressionSR ) .)
-    $end            reduce using rule 20 (expression -> FCIENT ( expressionSR ) .)
-    )               reduce using rule 20 (expression -> FCIENT ( expressionSR ) .)
+    +               reduce using rule 11 (expressionSR -> expressionSR + expressionMD .)
+    -               reduce using rule 11 (expressionSR -> expressionSR + expressionMD .)
+    LT              reduce using rule 11 (expressionSR -> expressionSR + expressionMD .)
+    GT              reduce using rule 11 (expressionSR -> expressionSR + expressionMD .)
+    SALTO           reduce using rule 11 (expressionSR -> expressionSR + expressionMD .)
+    $end            reduce using rule 11 (expressionSR -> expressionSR + expressionMD .)
+    )               reduce using rule 11 (expressionSR -> expressionSR + expressionMD .)
+    BOOLEANO        reduce using rule 11 (expressionSR -> expressionSR + expressionMD .)
+    *               shift and go to state 28
+    /               shift and go to state 29
 
+
+state 38
+
+    (12) expressionSR -> expressionSR - expressionMD .
+    (15) expressionMD -> expressionMD . * expression
+    (16) expressionMD -> expressionMD . / expression
+
+    +               reduce using rule 12 (expressionSR -> expressionSR - expressionMD .)
+    -               reduce using rule 12 (expressionSR -> expressionSR - expressionMD .)
+    LT              reduce using rule 12 (expressionSR -> expressionSR - expressionMD .)
+    GT              reduce using rule 12 (expressionSR -> expressionSR - expressionMD .)
+    SALTO           reduce using rule 12 (expressionSR -> expressionSR - expressionMD .)
+    $end            reduce using rule 12 (expressionSR -> expressionSR - expressionMD .)
+    )               reduce using rule 12 (expressionSR -> expressionSR - expressionMD .)
+    BOOLEANO        reduce using rule 12 (expressionSR -> expressionSR - expressionMD .)
+    *               shift and go to state 28
+    /               shift and go to state 29
+
+
+state 39
+
+    (8) expressionLOG -> expressionSR LT expressionSR .
+    (11) expressionSR -> expressionSR . + expressionMD
+    (12) expressionSR -> expressionSR . - expressionMD
+    (8) expressionLOG -> expressionSR . LT expressionSR
+    (9) expressionLOG -> expressionSR . GT expressionSR
+
+  ! shift/reduce conflict for + resolved as shift
+  ! shift/reduce conflict for - resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+    BOOLEANO        reduce using rule 8 (expressionLOG -> expressionSR LT expressionSR .)
+    SALTO           reduce using rule 8 (expressionLOG -> expressionSR LT expressionSR .)
+    $end            reduce using rule 8 (expressionLOG -> expressionSR LT expressionSR .)
+    )               reduce using rule 8 (expressionLOG -> expressionSR LT expressionSR .)
+    +               shift and go to state 21
+    -               shift and go to state 22
+    LT              shift and go to state 23
+    GT              shift and go to state 24
+
+  ! +               [ reduce using rule 8 (expressionLOG -> expressionSR LT expressionSR .) ]
+  ! -               [ reduce using rule 8 (expressionLOG -> expressionSR LT expressionSR .) ]
+  ! LT              [ reduce using rule 8 (expressionLOG -> expressionSR LT expressionSR .) ]
+  ! GT              [ reduce using rule 8 (expressionLOG -> expressionSR LT expressionSR .) ]
+
+
+state 40
+
+    (9) expressionLOG -> expressionSR GT expressionSR .
+    (11) expressionSR -> expressionSR . + expressionMD
+    (12) expressionSR -> expressionSR . - expressionMD
+    (8) expressionLOG -> expressionSR . LT expressionSR
+    (9) expressionLOG -> expressionSR . GT expressionSR
+
+  ! shift/reduce conflict for + resolved as shift
+  ! shift/reduce conflict for - resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+    BOOLEANO        reduce using rule 9 (expressionLOG -> expressionSR GT expressionSR .)
+    SALTO           reduce using rule 9 (expressionLOG -> expressionSR GT expressionSR .)
+    $end            reduce using rule 9 (expressionLOG -> expressionSR GT expressionSR .)
+    )               reduce using rule 9 (expressionLOG -> expressionSR GT expressionSR .)
+    +               shift and go to state 21
+    -               shift and go to state 22
+    LT              shift and go to state 23
+    GT              shift and go to state 24
+
+  ! +               [ reduce using rule 9 (expressionLOG -> expressionSR GT expressionSR .) ]
+  ! -               [ reduce using rule 9 (expressionLOG -> expressionSR GT expressionSR .) ]
+  ! LT              [ reduce using rule 9 (expressionLOG -> expressionSR GT expressionSR .) ]
+  ! GT              [ reduce using rule 9 (expressionLOG -> expressionSR GT expressionSR .) ]
+
+
+state 41
+
+    (7) statement -> expressionLOG BOOLEANO expressionLOG .
+    (14) expressionSR -> expressionLOG .
+
+    SALTO           reduce using rule 7 (statement -> expressionLOG BOOLEANO expressionLOG .)
+    $end            reduce using rule 7 (statement -> expressionLOG BOOLEANO expressionLOG .)
+    LT              reduce using rule 14 (expressionSR -> expressionLOG .)
+    GT              reduce using rule 14 (expressionSR -> expressionLOG .)
+    +               reduce using rule 14 (expressionSR -> expressionLOG .)
+    -               reduce using rule 14 (expressionSR -> expressionLOG .)
+
+
+state 42
+
+    (8) expressionLOG -> expressionSR . LT expressionSR
+    (9) expressionLOG -> expressionSR . GT expressionSR
+    (11) expressionSR -> expressionSR . + expressionMD
+    (12) expressionSR -> expressionSR . - expressionMD
+
+    LT              shift and go to state 23
+    GT              shift and go to state 24
+    +               shift and go to state 21
+    -               shift and go to state 22
+
+
+state 43
+
+    (15) expressionMD -> expressionMD * expression .
+
+    *               reduce using rule 15 (expressionMD -> expressionMD * expression .)
+    /               reduce using rule 15 (expressionMD -> expressionMD * expression .)
+    +               reduce using rule 15 (expressionMD -> expressionMD * expression .)
+    -               reduce using rule 15 (expressionMD -> expressionMD * expression .)
+    LT              reduce using rule 15 (expressionMD -> expressionMD * expression .)
+    GT              reduce using rule 15 (expressionMD -> expressionMD * expression .)
+    SALTO           reduce using rule 15 (expressionMD -> expressionMD * expression .)
+    $end            reduce using rule 15 (expressionMD -> expressionMD * expression .)
+    )               reduce using rule 15 (expressionMD -> expressionMD * expression .)
+    BOOLEANO        reduce using rule 15 (expressionMD -> expressionMD * expression .)
+
+
+state 44
+
+    (16) expressionMD -> expressionMD / expression .
+
+    *               reduce using rule 16 (expressionMD -> expressionMD / expression .)
+    /               reduce using rule 16 (expressionMD -> expressionMD / expression .)
+    +               reduce using rule 16 (expressionMD -> expressionMD / expression .)
+    -               reduce using rule 16 (expressionMD -> expressionMD / expression .)
+    LT              reduce using rule 16 (expressionMD -> expressionMD / expression .)
+    GT              reduce using rule 16 (expressionMD -> expressionMD / expression .)
+    SALTO           reduce using rule 16 (expressionMD -> expressionMD / expression .)
+    $end            reduce using rule 16 (expressionMD -> expressionMD / expression .)
+    )               reduce using rule 16 (expressionMD -> expressionMD / expression .)
+    BOOLEANO        reduce using rule 16 (expressionMD -> expressionMD / expression .)
+
+
+state 45
+
+    (18) expression -> ( expressionSR ) .
+
+    *               reduce using rule 18 (expression -> ( expressionSR ) .)
+    /               reduce using rule 18 (expression -> ( expressionSR ) .)
+    +               reduce using rule 18 (expression -> ( expressionSR ) .)
+    -               reduce using rule 18 (expression -> ( expressionSR ) .)
+    LT              reduce using rule 18 (expression -> ( expressionSR ) .)
+    GT              reduce using rule 18 (expression -> ( expressionSR ) .)
+    SALTO           reduce using rule 18 (expression -> ( expressionSR ) .)
+    $end            reduce using rule 18 (expression -> ( expressionSR ) .)
+    )               reduce using rule 18 (expression -> ( expressionSR ) .)
+    BOOLEANO        reduce using rule 18 (expression -> ( expressionSR ) .)
+
+
+state 46
+
+    (26) expression -> FCIENT ( expressionSR . )
+    (11) expressionSR -> expressionSR . + expressionMD
+    (12) expressionSR -> expressionSR . - expressionMD
+    (8) expressionLOG -> expressionSR . LT expressionSR
+    (9) expressionLOG -> expressionSR . GT expressionSR
+
+    )               shift and go to state 48
+    +               shift and go to state 21
+    -               shift and go to state 22
+    LT              shift and go to state 23
+    GT              shift and go to state 24
+
+
+state 47
+
+    (4) statement -> VARTYPE ID = expressionSR .
+    (11) expressionSR -> expressionSR . + expressionMD
+    (12) expressionSR -> expressionSR . - expressionMD
+    (8) expressionLOG -> expressionSR . LT expressionSR
+    (9) expressionLOG -> expressionSR . GT expressionSR
+
+    SALTO           reduce using rule 4 (statement -> VARTYPE ID = expressionSR .)
+    $end            reduce using rule 4 (statement -> VARTYPE ID = expressionSR .)
+    +               shift and go to state 21
+    -               shift and go to state 22
+    LT              shift and go to state 23
+    GT              shift and go to state 24
+
+
+state 48
+
+    (26) expression -> FCIENT ( expressionSR ) .
+
+    *               reduce using rule 26 (expression -> FCIENT ( expressionSR ) .)
+    /               reduce using rule 26 (expression -> FCIENT ( expressionSR ) .)
+    +               reduce using rule 26 (expression -> FCIENT ( expressionSR ) .)
+    -               reduce using rule 26 (expression -> FCIENT ( expressionSR ) .)
+    LT              reduce using rule 26 (expression -> FCIENT ( expressionSR ) .)
+    GT              reduce using rule 26 (expression -> FCIENT ( expressionSR ) .)
+    SALTO           reduce using rule 26 (expression -> FCIENT ( expressionSR ) .)
+    $end            reduce using rule 26 (expression -> FCIENT ( expressionSR ) .)
+    )               reduce using rule 26 (expression -> FCIENT ( expressionSR ) .)
+    BOOLEANO        reduce using rule 26 (expression -> FCIENT ( expressionSR ) .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for + in state 39 resolved as shift
+WARNING: shift/reduce conflict for - in state 39 resolved as shift
+WARNING: shift/reduce conflict for LT in state 39 resolved as shift
+WARNING: shift/reduce conflict for GT in state 39 resolved as shift
+WARNING: shift/reduce conflict for + in state 40 resolved as shift
+WARNING: shift/reduce conflict for - in state 40 resolved as shift
+WARNING: shift/reduce conflict for LT in state 40 resolved as shift
+WARNING: shift/reduce conflict for GT in state 40 resolved as shift
