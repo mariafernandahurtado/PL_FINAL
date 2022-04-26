@@ -1,0 +1,736 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> sentencias
+Rule 1     sentencias -> statement SALTO sentencias
+Rule 2     sentencias -> statement
+Rule 3     statement -> NAME ENTERO = expressionSR
+Rule 4     statement -> expressionSR
+Rule 5     statement -> <empty>
+Rule 6     expressionSR -> expressionSR + expressionMD
+Rule 7     expressionSR -> expressionSR - expressionMD
+Rule 8     expressionSR -> expressionMD
+Rule 9     expressionMD -> expressionMD * expression
+Rule 10    expressionMD -> expressionMD / expression
+Rule 11    expressionMD -> expression
+Rule 12    expression -> ( expressionSR )
+Rule 13    expression -> - expression
+Rule 14    expression -> + expression
+Rule 15    expression -> ENTERO
+Rule 16    expression -> DECIMAL
+Rule 17    expression -> HEXADECIMAL
+Rule 18    expression -> NOTCIENT
+Rule 19    expression -> OCTAL
+Rule 20    expression -> FCIENT ( expressionSR )
+Rule 21    expression -> NAME ENTERO
+
+Terminals, with rules where they appear
+
+(                    : 12 20
+)                    : 12 20
+*                    : 9
++                    : 6 14
+-                    : 7 13
+/                    : 10
+=                    : 3
+DECIMAL              : 16
+ENTERO               : 3 15 21
+FCIENT               : 20
+HEXADECIMAL          : 17
+NAME                 : 3 21
+NOTCIENT             : 18
+OCTAL                : 19
+SALTO                : 1
+error                : 
+
+Nonterminals, with rules where they appear
+
+expression           : 9 10 11 13 14
+expressionMD         : 6 7 8 9 10
+expressionSR         : 3 4 6 7 12 20
+sentencias           : 1 0
+statement            : 1 2
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . sentencias
+    (1) sentencias -> . statement SALTO sentencias
+    (2) sentencias -> . statement
+    (3) statement -> . NAME ENTERO = expressionSR
+    (4) statement -> . expressionSR
+    (5) statement -> .
+    (6) expressionSR -> . expressionSR + expressionMD
+    (7) expressionSR -> . expressionSR - expressionMD
+    (8) expressionSR -> . expressionMD
+    (9) expressionMD -> . expressionMD * expression
+    (10) expressionMD -> . expressionMD / expression
+    (11) expressionMD -> . expression
+    (12) expression -> . ( expressionSR )
+    (13) expression -> . - expression
+    (14) expression -> . + expression
+    (15) expression -> . ENTERO
+    (16) expression -> . DECIMAL
+    (17) expression -> . HEXADECIMAL
+    (18) expression -> . NOTCIENT
+    (19) expression -> . OCTAL
+    (20) expression -> . FCIENT ( expressionSR )
+    (21) expression -> . NAME ENTERO
+
+    NAME            shift and go to state 3
+    SALTO           reduce using rule 5 (statement -> .)
+    $end            reduce using rule 5 (statement -> .)
+    (               shift and go to state 10
+    -               shift and go to state 8
+    +               shift and go to state 6
+    ENTERO          shift and go to state 4
+    DECIMAL         shift and go to state 11
+    HEXADECIMAL     shift and go to state 12
+    NOTCIENT        shift and go to state 13
+    OCTAL           shift and go to state 14
+    FCIENT          shift and go to state 15
+
+    sentencias                     shift and go to state 1
+    statement                      shift and go to state 2
+    expressionSR                   shift and go to state 5
+    expressionMD                   shift and go to state 7
+    expression                     shift and go to state 9
+
+state 1
+
+    (0) S' -> sentencias .
+
+
+
+state 2
+
+    (1) sentencias -> statement . SALTO sentencias
+    (2) sentencias -> statement .
+
+    SALTO           shift and go to state 16
+    $end            reduce using rule 2 (sentencias -> statement .)
+
+
+state 3
+
+    (3) statement -> NAME . ENTERO = expressionSR
+    (21) expression -> NAME . ENTERO
+
+    ENTERO          shift and go to state 17
+
+
+state 4
+
+    (15) expression -> ENTERO .
+
+    *               reduce using rule 15 (expression -> ENTERO .)
+    /               reduce using rule 15 (expression -> ENTERO .)
+    +               reduce using rule 15 (expression -> ENTERO .)
+    -               reduce using rule 15 (expression -> ENTERO .)
+    SALTO           reduce using rule 15 (expression -> ENTERO .)
+    $end            reduce using rule 15 (expression -> ENTERO .)
+    )               reduce using rule 15 (expression -> ENTERO .)
+
+
+state 5
+
+    (4) statement -> expressionSR .
+    (6) expressionSR -> expressionSR . + expressionMD
+    (7) expressionSR -> expressionSR . - expressionMD
+
+    SALTO           reduce using rule 4 (statement -> expressionSR .)
+    $end            reduce using rule 4 (statement -> expressionSR .)
+    +               shift and go to state 18
+    -               shift and go to state 19
+
+
+state 6
+
+    (14) expression -> + . expression
+    (12) expression -> . ( expressionSR )
+    (13) expression -> . - expression
+    (14) expression -> . + expression
+    (15) expression -> . ENTERO
+    (16) expression -> . DECIMAL
+    (17) expression -> . HEXADECIMAL
+    (18) expression -> . NOTCIENT
+    (19) expression -> . OCTAL
+    (20) expression -> . FCIENT ( expressionSR )
+    (21) expression -> . NAME ENTERO
+
+    (               shift and go to state 10
+    -               shift and go to state 8
+    +               shift and go to state 6
+    ENTERO          shift and go to state 4
+    DECIMAL         shift and go to state 11
+    HEXADECIMAL     shift and go to state 12
+    NOTCIENT        shift and go to state 13
+    OCTAL           shift and go to state 14
+    FCIENT          shift and go to state 15
+    NAME            shift and go to state 21
+
+    expression                     shift and go to state 20
+
+state 7
+
+    (8) expressionSR -> expressionMD .
+    (9) expressionMD -> expressionMD . * expression
+    (10) expressionMD -> expressionMD . / expression
+
+    +               reduce using rule 8 (expressionSR -> expressionMD .)
+    -               reduce using rule 8 (expressionSR -> expressionMD .)
+    SALTO           reduce using rule 8 (expressionSR -> expressionMD .)
+    $end            reduce using rule 8 (expressionSR -> expressionMD .)
+    )               reduce using rule 8 (expressionSR -> expressionMD .)
+    *               shift and go to state 22
+    /               shift and go to state 23
+
+
+state 8
+
+    (13) expression -> - . expression
+    (12) expression -> . ( expressionSR )
+    (13) expression -> . - expression
+    (14) expression -> . + expression
+    (15) expression -> . ENTERO
+    (16) expression -> . DECIMAL
+    (17) expression -> . HEXADECIMAL
+    (18) expression -> . NOTCIENT
+    (19) expression -> . OCTAL
+    (20) expression -> . FCIENT ( expressionSR )
+    (21) expression -> . NAME ENTERO
+
+    (               shift and go to state 10
+    -               shift and go to state 8
+    +               shift and go to state 6
+    ENTERO          shift and go to state 4
+    DECIMAL         shift and go to state 11
+    HEXADECIMAL     shift and go to state 12
+    NOTCIENT        shift and go to state 13
+    OCTAL           shift and go to state 14
+    FCIENT          shift and go to state 15
+    NAME            shift and go to state 21
+
+    expression                     shift and go to state 24
+
+state 9
+
+    (11) expressionMD -> expression .
+
+    *               reduce using rule 11 (expressionMD -> expression .)
+    /               reduce using rule 11 (expressionMD -> expression .)
+    +               reduce using rule 11 (expressionMD -> expression .)
+    -               reduce using rule 11 (expressionMD -> expression .)
+    SALTO           reduce using rule 11 (expressionMD -> expression .)
+    $end            reduce using rule 11 (expressionMD -> expression .)
+    )               reduce using rule 11 (expressionMD -> expression .)
+
+
+state 10
+
+    (12) expression -> ( . expressionSR )
+    (6) expressionSR -> . expressionSR + expressionMD
+    (7) expressionSR -> . expressionSR - expressionMD
+    (8) expressionSR -> . expressionMD
+    (9) expressionMD -> . expressionMD * expression
+    (10) expressionMD -> . expressionMD / expression
+    (11) expressionMD -> . expression
+    (12) expression -> . ( expressionSR )
+    (13) expression -> . - expression
+    (14) expression -> . + expression
+    (15) expression -> . ENTERO
+    (16) expression -> . DECIMAL
+    (17) expression -> . HEXADECIMAL
+    (18) expression -> . NOTCIENT
+    (19) expression -> . OCTAL
+    (20) expression -> . FCIENT ( expressionSR )
+    (21) expression -> . NAME ENTERO
+
+    (               shift and go to state 10
+    -               shift and go to state 8
+    +               shift and go to state 6
+    ENTERO          shift and go to state 4
+    DECIMAL         shift and go to state 11
+    HEXADECIMAL     shift and go to state 12
+    NOTCIENT        shift and go to state 13
+    OCTAL           shift and go to state 14
+    FCIENT          shift and go to state 15
+    NAME            shift and go to state 21
+
+    expressionSR                   shift and go to state 25
+    expressionMD                   shift and go to state 7
+    expression                     shift and go to state 9
+
+state 11
+
+    (16) expression -> DECIMAL .
+
+    *               reduce using rule 16 (expression -> DECIMAL .)
+    /               reduce using rule 16 (expression -> DECIMAL .)
+    +               reduce using rule 16 (expression -> DECIMAL .)
+    -               reduce using rule 16 (expression -> DECIMAL .)
+    SALTO           reduce using rule 16 (expression -> DECIMAL .)
+    $end            reduce using rule 16 (expression -> DECIMAL .)
+    )               reduce using rule 16 (expression -> DECIMAL .)
+
+
+state 12
+
+    (17) expression -> HEXADECIMAL .
+
+    *               reduce using rule 17 (expression -> HEXADECIMAL .)
+    /               reduce using rule 17 (expression -> HEXADECIMAL .)
+    +               reduce using rule 17 (expression -> HEXADECIMAL .)
+    -               reduce using rule 17 (expression -> HEXADECIMAL .)
+    SALTO           reduce using rule 17 (expression -> HEXADECIMAL .)
+    $end            reduce using rule 17 (expression -> HEXADECIMAL .)
+    )               reduce using rule 17 (expression -> HEXADECIMAL .)
+
+
+state 13
+
+    (18) expression -> NOTCIENT .
+
+    *               reduce using rule 18 (expression -> NOTCIENT .)
+    /               reduce using rule 18 (expression -> NOTCIENT .)
+    +               reduce using rule 18 (expression -> NOTCIENT .)
+    -               reduce using rule 18 (expression -> NOTCIENT .)
+    SALTO           reduce using rule 18 (expression -> NOTCIENT .)
+    $end            reduce using rule 18 (expression -> NOTCIENT .)
+    )               reduce using rule 18 (expression -> NOTCIENT .)
+
+
+state 14
+
+    (19) expression -> OCTAL .
+
+    *               reduce using rule 19 (expression -> OCTAL .)
+    /               reduce using rule 19 (expression -> OCTAL .)
+    +               reduce using rule 19 (expression -> OCTAL .)
+    -               reduce using rule 19 (expression -> OCTAL .)
+    SALTO           reduce using rule 19 (expression -> OCTAL .)
+    $end            reduce using rule 19 (expression -> OCTAL .)
+    )               reduce using rule 19 (expression -> OCTAL .)
+
+
+state 15
+
+    (20) expression -> FCIENT . ( expressionSR )
+
+    (               shift and go to state 26
+
+
+state 16
+
+    (1) sentencias -> statement SALTO . sentencias
+    (1) sentencias -> . statement SALTO sentencias
+    (2) sentencias -> . statement
+    (3) statement -> . NAME ENTERO = expressionSR
+    (4) statement -> . expressionSR
+    (5) statement -> .
+    (6) expressionSR -> . expressionSR + expressionMD
+    (7) expressionSR -> . expressionSR - expressionMD
+    (8) expressionSR -> . expressionMD
+    (9) expressionMD -> . expressionMD * expression
+    (10) expressionMD -> . expressionMD / expression
+    (11) expressionMD -> . expression
+    (12) expression -> . ( expressionSR )
+    (13) expression -> . - expression
+    (14) expression -> . + expression
+    (15) expression -> . ENTERO
+    (16) expression -> . DECIMAL
+    (17) expression -> . HEXADECIMAL
+    (18) expression -> . NOTCIENT
+    (19) expression -> . OCTAL
+    (20) expression -> . FCIENT ( expressionSR )
+    (21) expression -> . NAME ENTERO
+
+    NAME            shift and go to state 3
+    SALTO           reduce using rule 5 (statement -> .)
+    $end            reduce using rule 5 (statement -> .)
+    (               shift and go to state 10
+    -               shift and go to state 8
+    +               shift and go to state 6
+    ENTERO          shift and go to state 4
+    DECIMAL         shift and go to state 11
+    HEXADECIMAL     shift and go to state 12
+    NOTCIENT        shift and go to state 13
+    OCTAL           shift and go to state 14
+    FCIENT          shift and go to state 15
+
+    statement                      shift and go to state 2
+    sentencias                     shift and go to state 27
+    expressionSR                   shift and go to state 5
+    expressionMD                   shift and go to state 7
+    expression                     shift and go to state 9
+
+state 17
+
+    (3) statement -> NAME ENTERO . = expressionSR
+    (21) expression -> NAME ENTERO .
+
+    =               shift and go to state 28
+    *               reduce using rule 21 (expression -> NAME ENTERO .)
+    /               reduce using rule 21 (expression -> NAME ENTERO .)
+    +               reduce using rule 21 (expression -> NAME ENTERO .)
+    -               reduce using rule 21 (expression -> NAME ENTERO .)
+    SALTO           reduce using rule 21 (expression -> NAME ENTERO .)
+    $end            reduce using rule 21 (expression -> NAME ENTERO .)
+
+
+state 18
+
+    (6) expressionSR -> expressionSR + . expressionMD
+    (9) expressionMD -> . expressionMD * expression
+    (10) expressionMD -> . expressionMD / expression
+    (11) expressionMD -> . expression
+    (12) expression -> . ( expressionSR )
+    (13) expression -> . - expression
+    (14) expression -> . + expression
+    (15) expression -> . ENTERO
+    (16) expression -> . DECIMAL
+    (17) expression -> . HEXADECIMAL
+    (18) expression -> . NOTCIENT
+    (19) expression -> . OCTAL
+    (20) expression -> . FCIENT ( expressionSR )
+    (21) expression -> . NAME ENTERO
+
+    (               shift and go to state 10
+    -               shift and go to state 8
+    +               shift and go to state 6
+    ENTERO          shift and go to state 4
+    DECIMAL         shift and go to state 11
+    HEXADECIMAL     shift and go to state 12
+    NOTCIENT        shift and go to state 13
+    OCTAL           shift and go to state 14
+    FCIENT          shift and go to state 15
+    NAME            shift and go to state 21
+
+    expressionMD                   shift and go to state 29
+    expression                     shift and go to state 9
+
+state 19
+
+    (7) expressionSR -> expressionSR - . expressionMD
+    (9) expressionMD -> . expressionMD * expression
+    (10) expressionMD -> . expressionMD / expression
+    (11) expressionMD -> . expression
+    (12) expression -> . ( expressionSR )
+    (13) expression -> . - expression
+    (14) expression -> . + expression
+    (15) expression -> . ENTERO
+    (16) expression -> . DECIMAL
+    (17) expression -> . HEXADECIMAL
+    (18) expression -> . NOTCIENT
+    (19) expression -> . OCTAL
+    (20) expression -> . FCIENT ( expressionSR )
+    (21) expression -> . NAME ENTERO
+
+    (               shift and go to state 10
+    -               shift and go to state 8
+    +               shift and go to state 6
+    ENTERO          shift and go to state 4
+    DECIMAL         shift and go to state 11
+    HEXADECIMAL     shift and go to state 12
+    NOTCIENT        shift and go to state 13
+    OCTAL           shift and go to state 14
+    FCIENT          shift and go to state 15
+    NAME            shift and go to state 21
+
+    expressionMD                   shift and go to state 30
+    expression                     shift and go to state 9
+
+state 20
+
+    (14) expression -> + expression .
+
+    *               reduce using rule 14 (expression -> + expression .)
+    /               reduce using rule 14 (expression -> + expression .)
+    +               reduce using rule 14 (expression -> + expression .)
+    -               reduce using rule 14 (expression -> + expression .)
+    SALTO           reduce using rule 14 (expression -> + expression .)
+    $end            reduce using rule 14 (expression -> + expression .)
+    )               reduce using rule 14 (expression -> + expression .)
+
+
+state 21
+
+    (21) expression -> NAME . ENTERO
+
+    ENTERO          shift and go to state 31
+
+
+state 22
+
+    (9) expressionMD -> expressionMD * . expression
+    (12) expression -> . ( expressionSR )
+    (13) expression -> . - expression
+    (14) expression -> . + expression
+    (15) expression -> . ENTERO
+    (16) expression -> . DECIMAL
+    (17) expression -> . HEXADECIMAL
+    (18) expression -> . NOTCIENT
+    (19) expression -> . OCTAL
+    (20) expression -> . FCIENT ( expressionSR )
+    (21) expression -> . NAME ENTERO
+
+    (               shift and go to state 10
+    -               shift and go to state 8
+    +               shift and go to state 6
+    ENTERO          shift and go to state 4
+    DECIMAL         shift and go to state 11
+    HEXADECIMAL     shift and go to state 12
+    NOTCIENT        shift and go to state 13
+    OCTAL           shift and go to state 14
+    FCIENT          shift and go to state 15
+    NAME            shift and go to state 21
+
+    expression                     shift and go to state 32
+
+state 23
+
+    (10) expressionMD -> expressionMD / . expression
+    (12) expression -> . ( expressionSR )
+    (13) expression -> . - expression
+    (14) expression -> . + expression
+    (15) expression -> . ENTERO
+    (16) expression -> . DECIMAL
+    (17) expression -> . HEXADECIMAL
+    (18) expression -> . NOTCIENT
+    (19) expression -> . OCTAL
+    (20) expression -> . FCIENT ( expressionSR )
+    (21) expression -> . NAME ENTERO
+
+    (               shift and go to state 10
+    -               shift and go to state 8
+    +               shift and go to state 6
+    ENTERO          shift and go to state 4
+    DECIMAL         shift and go to state 11
+    HEXADECIMAL     shift and go to state 12
+    NOTCIENT        shift and go to state 13
+    OCTAL           shift and go to state 14
+    FCIENT          shift and go to state 15
+    NAME            shift and go to state 21
+
+    expression                     shift and go to state 33
+
+state 24
+
+    (13) expression -> - expression .
+
+    *               reduce using rule 13 (expression -> - expression .)
+    /               reduce using rule 13 (expression -> - expression .)
+    +               reduce using rule 13 (expression -> - expression .)
+    -               reduce using rule 13 (expression -> - expression .)
+    SALTO           reduce using rule 13 (expression -> - expression .)
+    $end            reduce using rule 13 (expression -> - expression .)
+    )               reduce using rule 13 (expression -> - expression .)
+
+
+state 25
+
+    (12) expression -> ( expressionSR . )
+    (6) expressionSR -> expressionSR . + expressionMD
+    (7) expressionSR -> expressionSR . - expressionMD
+
+    )               shift and go to state 34
+    +               shift and go to state 18
+    -               shift and go to state 19
+
+
+state 26
+
+    (20) expression -> FCIENT ( . expressionSR )
+    (6) expressionSR -> . expressionSR + expressionMD
+    (7) expressionSR -> . expressionSR - expressionMD
+    (8) expressionSR -> . expressionMD
+    (9) expressionMD -> . expressionMD * expression
+    (10) expressionMD -> . expressionMD / expression
+    (11) expressionMD -> . expression
+    (12) expression -> . ( expressionSR )
+    (13) expression -> . - expression
+    (14) expression -> . + expression
+    (15) expression -> . ENTERO
+    (16) expression -> . DECIMAL
+    (17) expression -> . HEXADECIMAL
+    (18) expression -> . NOTCIENT
+    (19) expression -> . OCTAL
+    (20) expression -> . FCIENT ( expressionSR )
+    (21) expression -> . NAME ENTERO
+
+    (               shift and go to state 10
+    -               shift and go to state 8
+    +               shift and go to state 6
+    ENTERO          shift and go to state 4
+    DECIMAL         shift and go to state 11
+    HEXADECIMAL     shift and go to state 12
+    NOTCIENT        shift and go to state 13
+    OCTAL           shift and go to state 14
+    FCIENT          shift and go to state 15
+    NAME            shift and go to state 21
+
+    expressionSR                   shift and go to state 35
+    expressionMD                   shift and go to state 7
+    expression                     shift and go to state 9
+
+state 27
+
+    (1) sentencias -> statement SALTO sentencias .
+
+    $end            reduce using rule 1 (sentencias -> statement SALTO sentencias .)
+
+
+state 28
+
+    (3) statement -> NAME ENTERO = . expressionSR
+    (6) expressionSR -> . expressionSR + expressionMD
+    (7) expressionSR -> . expressionSR - expressionMD
+    (8) expressionSR -> . expressionMD
+    (9) expressionMD -> . expressionMD * expression
+    (10) expressionMD -> . expressionMD / expression
+    (11) expressionMD -> . expression
+    (12) expression -> . ( expressionSR )
+    (13) expression -> . - expression
+    (14) expression -> . + expression
+    (15) expression -> . ENTERO
+    (16) expression -> . DECIMAL
+    (17) expression -> . HEXADECIMAL
+    (18) expression -> . NOTCIENT
+    (19) expression -> . OCTAL
+    (20) expression -> . FCIENT ( expressionSR )
+    (21) expression -> . NAME ENTERO
+
+    (               shift and go to state 10
+    -               shift and go to state 8
+    +               shift and go to state 6
+    ENTERO          shift and go to state 4
+    DECIMAL         shift and go to state 11
+    HEXADECIMAL     shift and go to state 12
+    NOTCIENT        shift and go to state 13
+    OCTAL           shift and go to state 14
+    FCIENT          shift and go to state 15
+    NAME            shift and go to state 21
+
+    expressionSR                   shift and go to state 36
+    expressionMD                   shift and go to state 7
+    expression                     shift and go to state 9
+
+state 29
+
+    (6) expressionSR -> expressionSR + expressionMD .
+    (9) expressionMD -> expressionMD . * expression
+    (10) expressionMD -> expressionMD . / expression
+
+    +               reduce using rule 6 (expressionSR -> expressionSR + expressionMD .)
+    -               reduce using rule 6 (expressionSR -> expressionSR + expressionMD .)
+    SALTO           reduce using rule 6 (expressionSR -> expressionSR + expressionMD .)
+    $end            reduce using rule 6 (expressionSR -> expressionSR + expressionMD .)
+    )               reduce using rule 6 (expressionSR -> expressionSR + expressionMD .)
+    *               shift and go to state 22
+    /               shift and go to state 23
+
+
+state 30
+
+    (7) expressionSR -> expressionSR - expressionMD .
+    (9) expressionMD -> expressionMD . * expression
+    (10) expressionMD -> expressionMD . / expression
+
+    +               reduce using rule 7 (expressionSR -> expressionSR - expressionMD .)
+    -               reduce using rule 7 (expressionSR -> expressionSR - expressionMD .)
+    SALTO           reduce using rule 7 (expressionSR -> expressionSR - expressionMD .)
+    $end            reduce using rule 7 (expressionSR -> expressionSR - expressionMD .)
+    )               reduce using rule 7 (expressionSR -> expressionSR - expressionMD .)
+    *               shift and go to state 22
+    /               shift and go to state 23
+
+
+state 31
+
+    (21) expression -> NAME ENTERO .
+
+    *               reduce using rule 21 (expression -> NAME ENTERO .)
+    /               reduce using rule 21 (expression -> NAME ENTERO .)
+    +               reduce using rule 21 (expression -> NAME ENTERO .)
+    -               reduce using rule 21 (expression -> NAME ENTERO .)
+    SALTO           reduce using rule 21 (expression -> NAME ENTERO .)
+    $end            reduce using rule 21 (expression -> NAME ENTERO .)
+    )               reduce using rule 21 (expression -> NAME ENTERO .)
+
+
+state 32
+
+    (9) expressionMD -> expressionMD * expression .
+
+    *               reduce using rule 9 (expressionMD -> expressionMD * expression .)
+    /               reduce using rule 9 (expressionMD -> expressionMD * expression .)
+    +               reduce using rule 9 (expressionMD -> expressionMD * expression .)
+    -               reduce using rule 9 (expressionMD -> expressionMD * expression .)
+    SALTO           reduce using rule 9 (expressionMD -> expressionMD * expression .)
+    $end            reduce using rule 9 (expressionMD -> expressionMD * expression .)
+    )               reduce using rule 9 (expressionMD -> expressionMD * expression .)
+
+
+state 33
+
+    (10) expressionMD -> expressionMD / expression .
+
+    *               reduce using rule 10 (expressionMD -> expressionMD / expression .)
+    /               reduce using rule 10 (expressionMD -> expressionMD / expression .)
+    +               reduce using rule 10 (expressionMD -> expressionMD / expression .)
+    -               reduce using rule 10 (expressionMD -> expressionMD / expression .)
+    SALTO           reduce using rule 10 (expressionMD -> expressionMD / expression .)
+    $end            reduce using rule 10 (expressionMD -> expressionMD / expression .)
+    )               reduce using rule 10 (expressionMD -> expressionMD / expression .)
+
+
+state 34
+
+    (12) expression -> ( expressionSR ) .
+
+    *               reduce using rule 12 (expression -> ( expressionSR ) .)
+    /               reduce using rule 12 (expression -> ( expressionSR ) .)
+    +               reduce using rule 12 (expression -> ( expressionSR ) .)
+    -               reduce using rule 12 (expression -> ( expressionSR ) .)
+    SALTO           reduce using rule 12 (expression -> ( expressionSR ) .)
+    $end            reduce using rule 12 (expression -> ( expressionSR ) .)
+    )               reduce using rule 12 (expression -> ( expressionSR ) .)
+
+
+state 35
+
+    (20) expression -> FCIENT ( expressionSR . )
+    (6) expressionSR -> expressionSR . + expressionMD
+    (7) expressionSR -> expressionSR . - expressionMD
+
+    )               shift and go to state 37
+    +               shift and go to state 18
+    -               shift and go to state 19
+
+
+state 36
+
+    (3) statement -> NAME ENTERO = expressionSR .
+    (6) expressionSR -> expressionSR . + expressionMD
+    (7) expressionSR -> expressionSR . - expressionMD
+
+    SALTO           reduce using rule 3 (statement -> NAME ENTERO = expressionSR .)
+    $end            reduce using rule 3 (statement -> NAME ENTERO = expressionSR .)
+    +               shift and go to state 18
+    -               shift and go to state 19
+
+
+state 37
+
+    (20) expression -> FCIENT ( expressionSR ) .
+
+    *               reduce using rule 20 (expression -> FCIENT ( expressionSR ) .)
+    /               reduce using rule 20 (expression -> FCIENT ( expressionSR ) .)
+    +               reduce using rule 20 (expression -> FCIENT ( expressionSR ) .)
+    -               reduce using rule 20 (expression -> FCIENT ( expressionSR ) .)
+    SALTO           reduce using rule 20 (expression -> FCIENT ( expressionSR ) .)
+    $end            reduce using rule 20 (expression -> FCIENT ( expressionSR ) .)
+    )               reduce using rule 20 (expression -> FCIENT ( expressionSR ) .)
+

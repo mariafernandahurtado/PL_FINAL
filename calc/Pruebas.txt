@@ -1,0 +1,56 @@
+%%PARTE1
+%%PRUEBAS APARTADO A
+%% Lineas vacias, con y sin espacios en blanco
+%%
+%% Operandos individuales
+5
++5
+-1
+%% Con mas de un caracter
+1341894
++1341894
+-1341894
+%% Operaciones
+5 * +3 - 80/10 %% esta expresion debe resultar 7
+10 / 5 * 2 %% esta expresion debe resultar 4
+- 3 *4 %% esta expresion debe resultar -12
+5 * (4-3) / (8 - (4-1)) %% esta expresion debe resultar 1
+
+%%PRUEBAS APARTADO B
+5.3+ .1%%esta expresion debe resultar 5.4 ---------------------------------------------
+5.3+0x11 %% esta expresion debe resultar 22.3
+.5*2+3-5/2 %%resultado esperado 1.5
+1.13e-2+1 %% resultado esperado 1.0113
+0O1011 %%equivale al numero 521
+0o1011 +1 %%tiene que resultar en 522
+
+%%PARTE 2
+%%PRUEBAS PARTE B
+1+2/4*5 %%resultado esperado 3.5
+-(5*4+1) %%resultado esperado -21
+-1+2/4*-(7+4) %%resultado esperado -6.5
+5*3 +-80/10 %% esta expresión debe resultar 7
+10/5 * 2 %% esta expresión debe resultar 4
+-3*4 %% esta expresión debe resultar -12
+5*(4-3)/(8 - (4-1)) %% esta expresión debe resultar 1
+
+
+
+%%PRUEBAS APARTADO C
+exp(10) %%resultado esperado 22026.46579480672
+log(1) %%resultado esperado 0
+sin(3) %%resultado esperado 0.14112
+cos(0) %%resultado esperado 1
+sin(3*3) +cos(0) %%resultado esperado 1.41211
+
+%%PRUEBAS APARTADO D
+
+MEM_1 = 5 %% MEM_1 = 5
+MEM_2 = (-(7*MEM_1)+-6)*-1 %% MEM_2 = 41
+MEM_2-MEM_1 %% esta expresión debe resultar 36
+MEM_11=0 %%se espera mensaje de error
+var1=4 %%error
+MEM_2=1 %%se espera que se guarde el nuevo valor para mem2
+MEM_1-MEM_2 %% se espera como resultado 4
+MEM_3+MEM_1 %%se espera un 5, ya que mem3 vale 0(valor de inicializacion
+
