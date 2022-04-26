@@ -43,7 +43,7 @@ tokens = [
     'SEPARADOR', 'ASIGNACION', 'SIMBOLO',
     'BOOLEANO', 'LT','GT' , 'VARTYPE'
 ]
-literals = ['=', '+', '-', '*', '/', '(', ')',';']
+literals = ['=', '+', '-', '*', '/', '(', ')', ';', ',']
 
 """
 # Tokens
@@ -204,23 +204,34 @@ def p_statement_sl_statement(p):
     '''sentencias : statement SALTO sentencias
         | statement '''
 
+def p_statement_declaration(p):
+    '''statement : VARTYPE declaration'''
+    if p[1] == "ENTERO":
+        names[p[2]] = 0
+    elif p[1] == "FLOAT":
+        names[p[2]] = 0.0
+    elif p[1] == "BOOLEAN":
+        names[p[2]] = False
+
+
+def p_declaracion_variables(p):
+    '''declaration : identificador'''
+                    #|  declaration ',' declaration '''
+
+    p[0]=p[1]
+
+
 def p_statement_declarationSimple(p):
-    """statement : VARTYPE ID"""
-    if p[2] in names.keys():
+    """identificador : ID"""
+
+    if p[1] in names.keys():
         print("Variable definida anteriormente")
     else:
-        if p[1]=="ENTERO":
-            names[p[2]]=0
-        elif p[1]=="FLOAT":
-            names[p[2]] = 0.0
-        elif p[1]=="BOOLEAN":
-            names[p[2]] = False
-        else:
-            print("Debe dar valor a la variable")
+        p[0]=p[1]
+
 
 def p_statement_dec_assign(p):
     """statement : VARTYPE ID '=' expressionSR"""
-
     if p[2] not in names.keys():
         names[p[2]]=p[4]
         p[2] = p[4]
@@ -229,12 +240,11 @@ def p_statement_dec_assign(p):
 
 def p_statement_assign(p):
     """statement : ID '=' expressionSR """
-
     if p[1] in names.keys():
         names[p[1]] = p[3]
         p[1] = p[3]
     else:
-        print("Declare primero la varibale")
+        print("Declare primero la variable")
 
 
     

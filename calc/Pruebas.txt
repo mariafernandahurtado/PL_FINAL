@@ -10,8 +10,15 @@
 BOOLEAN var2=true
 var2
 
-ENTERO a
-a=1
-a
+ENTERO var1
+var1
+
+var1=2
+var1
 
 BOOLEAN a
+a=0
+a
+
+
+

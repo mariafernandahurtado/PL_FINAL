@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "ASIGNACION BOOLEANO DECIMAL ENTERO FCIENT GT ID LT NOTCIENT OCTAL SALTO SEPARADOR SIMBOLO VARTYPE V_BOOLEANsentencias : statement SALTO sentencias\n        | statement statement : VARTYPE IDstatement : VARTYPE ID '=' expressionSRstatement : ID '=' expressionSR statement : expressionSRstatement :  expressionLOG BOOLEANO expressionLOGexpressionLOG : expressionSR LT expressionSR\n                        | expressionSR GT expressionSRstatement : \nexpressionSR : expressionSR '+' expressionMD\n                  | expressionSR '-' expressionMDexpressionSR : expressionMD\n                    | expressionLOGexpressionMD : expressionMD '*' expression\n                  | expressionMD '/' expressionexpressionMD : expressionexpression : '(' expressionSR ')'expression : '-' expression\n                | '+' expression\n                expression : ENTERO\n                | DECIMAL\n                | V_BOOLEAN\n                | NOTCIENT\n                | OCTAL\n    expression : FCIENT '(' expressionSR ')'expression : ID "
+_lr_signature = "ASIGNACION BOOLEANO DECIMAL ENTERO FCIENT GT ID LT NOTCIENT OCTAL SALTO SEPARADOR SIMBOLO VARTYPE V_BOOLEANsentencias : statement SALTO sentencias\n        | statement statement : VARTYPE declarationdeclaration : identificadoridentificador : IDstatement : VARTYPE ID '=' expressionSRstatement : ID '=' expressionSR statement : expressionSRstatement :  expressionLOG BOOLEANO expressionLOGexpressionLOG : expressionSR LT expressionSR\n                        | expressionSR GT expressionSRstatement : \nexpressionSR : expressionSR '+' expressionMD\n                  | expressionSR '-' expressionMDexpressionSR : expressionMD\n                    | expressionLOGexpressionMD : expressionMD '*' expression\n                  | expressionMD '/' expressionexpressionMD : expressionexpression : '(' expressionSR ')'expression : '-' expression\n                | '+' expression\n                expression : ENTERO\n                | DECIMAL\n                | V_BOOLEAN\n                | NOTCIENT\n                | OCTAL\n    expression : FCIENT '(' expressionSR ')'expression : ID "
     
-_lr_action_items = {'VARTYPE':([0,18,],[3,3,]),'ID':([0,3,7,9,11,18,20,21,22,23,24,25,28,29,33,35,],[4,19,27,27,27,4,27,27,27,27,27,27,27,27,27,27,]),'SALTO':([0,2,4,5,6,8,10,12,13,14,15,16,18,19,26,27,30,32,36,37,38,39,40,41,43,44,45,47,48,],[-10,18,-27,-6,-14,-13,-17,-21,-22,-23,-24,-25,-10,-3,-20,-27,-19,-14,-5,-11,-12,-8,-9,-7,-15,-16,-18,-4,-26,]),'$end':([0,1,2,4,5,6,8,10,12,13,14,15,16,18,19,26,27,30,32,34,36,37,38,39,40,41,43,44,45,47,48,],[-10,0,-2,-27,-6,-14,-13,-17,-21,-22,-23,-24,-25,-10,-3,-20,-27,-19,-14,-1,-5,-11,-12,-8,-9,-7,-15,-16,-18,-4,-26,]),'(':([0,7,9,11,17,18,20,21,22,23,24,25,28,29,33,35,],[11,11,11,11,33,11,11,11,11,11,11,11,11,11,11,11,]),'-':([0,4,5,6,7,8,9,10,11,12,13,14,15,16,18,20,21,22,23,24,25,26,27,28,29,30,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,47,48,],[9,-27,22,-14,9,-13,9,-17,9,-21,-22,-23,-24,-25,9,9,9,9,9,9,9,-20,-27,9,9,-19,22,-14,9,9,22,-11,-12,22,22,-14,22,-15,-16,-18,22,22,-26,]),'+':([0,4,5,6,7,8,9,10,11,12,13,14,15,16,18,20,21,22,23,24,25,26,27,28,29,30,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,47,48,],[7,-27,21,-14,7,-13,7,-17,7,-21,-22,-23,-24,-25,7,7,7,7,7,7,7,-20,-27,7,7,-19,21,-14,7,7,21,-11,-12,21,21,-14,21,-15,-16,-18,21,21,-26,]),'ENTERO':([0,7,9,11,18,20,21,22,23,24,25,28,29,33,35,],[12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,]),'DECIMAL':([0,7,9,11,18,20,21,22,23,24,25,28,29,33,35,],[13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,]),'V_BOOLEAN':([0,7,9,11,18,20,21,22,23,24,25,28,29,33,35,],[14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,]),'NOTCIENT':([0,7,9,11,18,20,21,22,23,24,25,28,29,33,35,],[15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,]),'OCTAL':([0,7,9,11,18,20,21,22,23,24,25,28,29,33,35,],[16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,]),'FCIENT':([0,7,9,11,18,20,21,22,23,24,25,28,29,33,35,],[17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,]),'=':([4,19,],[20,35,]),'*':([4,8,10,12,13,14,15,16,26,27,30,37,38,43,44,45,48,],[-27,28,-17,-21,-22,-23,-24,-25,-20,-27,-19,28,28,-15,-16,-18,-26,]),'/':([4,8,10,12,13,14,15,16,26,27,30,37,38,43,44,45,48,],[-27,29,-17,-21,-22,-23,-24,-25,-20,-27,-19,29,29,-15,-16,-18,-26,]),'LT':([4,5,6,8,10,12,13,14,15,16,26,27,30,31,32,36,37,38,39,40,41,42,43,44,45,46,47,48,],[-27,23,-14,-13,-17,-21,-22,-23,-24,-25,-20,-27,-19,23,-14,23,-11,-12,23,23,-14,23,-15,-16,-18,23,23,-26,]),'GT':([4,5,6,8,10,12,13,14,15,16,26,27,30,31,32,36,37,38,39,40,41,42,43,44,45,46,47,48,],[-27,24,-14,-13,-17,-21,-22,-23,-24,-25,-20,-27,-19,24,-14,24,-11,-12,24,24,-14,24,-15,-16,-18,24,24,-26,]),'BOOLEANO':([6,8,10,12,13,14,15,16,26,27,30,32,37,38,39,40,43,44,45,48,],[25,-13,-17,-21,-22,-23,-24,-25,-20,-27,-19,-14,-11,-12,-8,-9,-15,-16,-18,-26,]),')':([8,10,12,13,14,15,16,26,27,30,31,32,37,38,39,40,43,44,45,46,48,],[-13,-17,-21,-22,-23,-24,-25,-20,-27,-19,45,-14,-11,-12,-8,-9,-15,-16,-18,48,-26,]),}
+_lr_action_items = {'VARTYPE':([0,18,],[3,3,]),'ID':([0,3,7,9,11,18,22,23,24,25,26,27,30,31,35,37,],[4,20,29,29,29,4,29,29,29,29,29,29,29,29,29,29,]),'SALTO':([0,2,4,5,6,8,10,12,13,14,15,16,18,19,20,21,28,29,32,34,38,39,40,41,42,43,45,46,47,49,50,],[-12,18,-29,-8,-16,-15,-19,-23,-24,-25,-26,-27,-12,-3,-5,-4,-22,-29,-21,-16,-7,-13,-14,-10,-11,-9,-17,-18,-20,-6,-28,]),'$end':([0,1,2,4,5,6,8,10,12,13,14,15,16,18,19,20,21,28,29,32,34,36,38,39,40,41,42,43,45,46,47,49,50,],[-12,0,-2,-29,-8,-16,-15,-19,-23,-24,-25,-26,-27,-12,-3,-5,-4,-22,-29,-21,-16,-1,-7,-13,-14,-10,-11,-9,-17,-18,-20,-6,-28,]),'(':([0,7,9,11,17,18,22,23,24,25,26,27,30,31,35,37,],[11,11,11,11,35,11,11,11,11,11,11,11,11,11,11,11,]),'-':([0,4,5,6,7,8,9,10,11,12,13,14,15,16,18,22,23,24,25,26,27,28,29,30,31,32,33,34,35,37,38,39,40,41,42,43,44,45,46,47,48,49,50,],[9,-29,24,-16,9,-15,9,-19,9,-23,-24,-25,-26,-27,9,9,9,9,9,9,9,-22,-29,9,9,-21,24,-16,9,9,24,-13,-14,24,24,-16,24,-17,-18,-20,24,24,-28,]),'+':([0,4,5,6,7,8,9,10,11,12,13,14,15,16,18,22,23,24,25,26,27,28,29,30,31,32,33,34,35,37,38,39,40,41,42,43,44,45,46,47,48,49,50,],[7,-29,23,-16,7,-15,7,-19,7,-23,-24,-25,-26,-27,7,7,7,7,7,7,7,-22,-29,7,7,-21,23,-16,7,7,23,-13,-14,23,23,-16,23,-17,-18,-20,23,23,-28,]),'ENTERO':([0,7,9,11,18,22,23,24,25,26,27,30,31,35,37,],[12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,]),'DECIMAL':([0,7,9,11,18,22,23,24,25,26,27,30,31,35,37,],[13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,]),'V_BOOLEAN':([0,7,9,11,18,22,23,24,25,26,27,30,31,35,37,],[14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,]),'NOTCIENT':([0,7,9,11,18,22,23,24,25,26,27,30,31,35,37,],[15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,]),'OCTAL':([0,7,9,11,18,22,23,24,25,26,27,30,31,35,37,],[16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,]),'FCIENT':([0,7,9,11,18,22,23,24,25,26,27,30,31,35,37,],[17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,]),'=':([4,20,],[22,37,]),'*':([4,8,10,12,13,14,15,16,28,29,32,39,40,45,46,47,50,],[-29,30,-19,-23,-24,-25,-26,-27,-22,-29,-21,30,30,-17,-18,-20,-28,]),'/':([4,8,10,12,13,14,15,16,28,29,32,39,40,45,46,47,50,],[-29,31,-19,-23,-24,-25,-26,-27,-22,-29,-21,31,31,-17,-18,-20,-28,]),'LT':([4,5,6,8,10,12,13,14,15,16,28,29,32,33,34,38,39,40,41,42,43,44,45,46,47,48,49,50,],[-29,25,-16,-15,-19,-23,-24,-25,-26,-27,-22,-29,-21,25,-16,25,-13,-14,25,25,-16,25,-17,-18,-20,25,25,-28,]),'GT':([4,5,6,8,10,12,13,14,15,16,28,29,32,33,34,38,39,40,41,42,43,44,45,46,47,48,49,50,],[-29,26,-16,-15,-19,-23,-24,-25,-26,-27,-22,-29,-21,26,-16,26,-13,-14,26,26,-16,26,-17,-18,-20,26,26,-28,]),'BOOLEANO':([6,8,10,12,13,14,15,16,28,29,32,34,39,40,41,42,45,46,47,50,],[27,-15,-19,-23,-24,-25,-26,-27,-22,-29,-21,-16,-13,-14,-10,-11,-17,-18,-20,-28,]),')':([8,10,12,13,14,15,16,28,29,32,33,34,39,40,41,42,45,46,47,48,50,],[-15,-19,-23,-24,-25,-26,-27,-22,-29,-21,47,-16,-13,-14,-10,-11,-17,-18,-20,50,-28,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'sentencias':([0,18,],[1,34,]),'statement':([0,18,],[2,2,]),'expressionSR':([0,11,18,20,23,24,25,33,35,],[5,31,5,36,39,40,42,46,47,]),'expressionLOG':([0,11,18,20,23,24,25,33,35,],[6,32,6,32,32,32,41,32,32,]),'expressionMD':([0,11,18,20,21,22,23,24,25,33,35,],[8,8,8,8,37,38,8,8,8,8,8,]),'expression':([0,7,9,11,18,20,21,22,23,24,25,28,29,33,35,],[10,26,30,10,10,10,10,10,10,10,10,43,44,10,10,]),}
+_lr_goto_items = {'sentencias':([0,18,],[1,36,]),'statement':([0,18,],[2,2,]),'expressionSR':([0,11,18,22,25,26,27,35,37,],[5,33,5,38,41,42,44,48,49,]),'expressionLOG':([0,11,18,22,25,26,27,35,37,],[6,34,6,34,34,34,43,34,34,]),'expressionMD':([0,11,18,22,23,24,25,26,27,35,37,],[8,8,8,8,39,40,8,8,8,8,8,]),'expression':([0,7,9,11,18,22,23,24,25,26,27,30,31,35,37,],[10,28,32,10,10,10,10,10,10,10,10,45,46,10,10,]),'declaration':([3,],[19,]),'identificador':([3,],[21,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -29,29 +29,31 @@ _lr_productions = [
   ("S' -> sentencias","S'",1,None,None,None),
   ('sentencias -> statement SALTO sentencias','sentencias',3,'p_statement_sl_statement','calc.py',204),
   ('sentencias -> statement','sentencias',1,'p_statement_sl_statement','calc.py',205),
-  ('statement -> VARTYPE ID','statement',2,'p_statement_declarationSimple','calc.py',208),
-  ('statement -> VARTYPE ID = expressionSR','statement',4,'p_statement_dec_assign','calc.py',222),
-  ('statement -> ID = expressionSR','statement',3,'p_statement_assign','calc.py',231),
-  ('statement -> expressionSR','statement',1,'p_statement_expr','calc.py',242),
-  ('statement -> expressionLOG BOOLEANO expressionLOG','statement',3,'p_statement_boolean','calc.py',246),
-  ('expressionLOG -> expressionSR LT expressionSR','expressionLOG',3,'p_expressionLOG','calc.py',265),
-  ('expressionLOG -> expressionSR GT expressionSR','expressionLOG',3,'p_expressionLOG','calc.py',266),
-  ('statement -> <empty>','statement',0,'p_statement_sl','calc.py',281),
-  ('expressionSR -> expressionSR + expressionMD','expressionSR',3,'p_expression_binop','calc.py',284),
-  ('expressionSR -> expressionSR - expressionMD','expressionSR',3,'p_expression_binop','calc.py',285),
-  ('expressionSR -> expressionMD','expressionSR',1,'p_expressionSR_expressionMD','calc.py',292),
-  ('expressionSR -> expressionLOG','expressionSR',1,'p_expressionSR_expressionMD','calc.py',293),
-  ('expressionMD -> expressionMD * expression','expressionMD',3,'p_expression_opmd','calc.py',297),
-  ('expressionMD -> expressionMD / expression','expressionMD',3,'p_expression_opmd','calc.py',298),
-  ('expressionMD -> expression','expressionMD',1,'p_expressionMD_expression','calc.py',305),
-  ('expression -> ( expressionSR )','expression',3,'p_expression_group','calc.py',311),
-  ('expression -> - expression','expression',2,'p_expression_signo','calc.py',316),
-  ('expression -> + expression','expression',2,'p_expression_signo','calc.py',317),
-  ('expression -> ENTERO','expression',1,'p_expression_basica','calc.py',326),
-  ('expression -> DECIMAL','expression',1,'p_expression_basica','calc.py',327),
-  ('expression -> V_BOOLEAN','expression',1,'p_expression_basica','calc.py',328),
-  ('expression -> NOTCIENT','expression',1,'p_expression_basica','calc.py',329),
-  ('expression -> OCTAL','expression',1,'p_expression_basica','calc.py',330),
-  ('expression -> FCIENT ( expressionSR )','expression',4,'p_expression_fcient','calc.py',335),
-  ('expression -> ID','expression',1,'p_expression_name','calc.py',347),
+  ('statement -> VARTYPE declaration','statement',2,'p_statement_declaration','calc.py',208),
+  ('declaration -> identificador','declaration',1,'p_declaracion_variables','calc.py',218),
+  ('identificador -> ID','identificador',1,'p_statement_declarationSimple','calc.py',225),
+  ('statement -> VARTYPE ID = expressionSR','statement',4,'p_statement_dec_assign','calc.py',234),
+  ('statement -> ID = expressionSR','statement',3,'p_statement_assign','calc.py',242),
+  ('statement -> expressionSR','statement',1,'p_statement_expr','calc.py',252),
+  ('statement -> expressionLOG BOOLEANO expressionLOG','statement',3,'p_statement_boolean','calc.py',256),
+  ('expressionLOG -> expressionSR LT expressionSR','expressionLOG',3,'p_expressionLOG','calc.py',275),
+  ('expressionLOG -> expressionSR GT expressionSR','expressionLOG',3,'p_expressionLOG','calc.py',276),
+  ('statement -> <empty>','statement',0,'p_statement_sl','calc.py',291),
+  ('expressionSR -> expressionSR + expressionMD','expressionSR',3,'p_expression_binop','calc.py',294),
+  ('expressionSR -> expressionSR - expressionMD','expressionSR',3,'p_expression_binop','calc.py',295),
+  ('expressionSR -> expressionMD','expressionSR',1,'p_expressionSR_expressionMD','calc.py',302),
+  ('expressionSR -> expressionLOG','expressionSR',1,'p_expressionSR_expressionMD','calc.py',303),
+  ('expressionMD -> expressionMD * expression','expressionMD',3,'p_expression_opmd','calc.py',307),
+  ('expressionMD -> expressionMD / expression','expressionMD',3,'p_expression_opmd','calc.py',308),
+  ('expressionMD -> expression','expressionMD',1,'p_expressionMD_expression','calc.py',315),
+  ('expression -> ( expressionSR )','expression',3,'p_expression_group','calc.py',321),
+  ('expression -> - expression','expression',2,'p_expression_signo','calc.py',326),
+  ('expression -> + expression','expression',2,'p_expression_signo','calc.py',327),
+  ('expression -> ENTERO','expression',1,'p_expression_basica','calc.py',336),
+  ('expression -> DECIMAL','expression',1,'p_expression_basica','calc.py',337),
+  ('expression -> V_BOOLEAN','expression',1,'p_expression_basica','calc.py',338),
+  ('expression -> NOTCIENT','expression',1,'p_expression_basica','calc.py',339),
+  ('expression -> OCTAL','expression',1,'p_expression_basica','calc.py',340),
+  ('expression -> FCIENT ( expressionSR )','expression',4,'p_expression_fcient','calc.py',345),
+  ('expression -> ID','expression',1,'p_expression_name','calc.py',357),
 ]
