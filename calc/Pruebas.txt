@@ -14,3 +14,4 @@ ENTERO a
 a=1
 a
 
+BOOLEAN a

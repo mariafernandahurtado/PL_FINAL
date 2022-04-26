@@ -206,7 +206,7 @@ def p_statement_sl_statement(p):
 
 def p_statement_declarationSimple(p):
     """statement : VARTYPE ID"""
-    if p[1] in names.keys():
+    if p[2] in names.keys():
         print("Variable definida anteriormente")
     else:
         if p[1]=="ENTERO":
