@@ -43,7 +43,7 @@ tokens = [
     'SEPARADOR', 'ASIGNACION', 'SIMBOLO',
     'BOOLEANO', 'LT','GT' , 'VARTYPE'
 ]
-literals = ['=', '+', '-', '*', '/', '(', ')']
+literals = ['=', '+', '-', '*', '/', '(', ')',';']
 
 """
 # Tokens
@@ -202,7 +202,7 @@ names = {}
 
 def p_statement_sl_statement(p):
     '''sentencias : statement SALTO sentencias
-        | statement'''
+        | statement '''
 
 def p_statement_declarationSimple(p):
     """statement : VARTYPE ID"""
@@ -228,7 +228,7 @@ def p_statement_dec_assign(p):
         print("Variable definida anteriormente")
 
 def p_statement_assign(p):
-    """statement : ID '=' expressionSR"""
+    """statement : ID '=' expressionSR """
 
     if p[1] in names.keys():
         names[p[1]] = p[3]
