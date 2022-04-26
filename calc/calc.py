@@ -13,95 +13,138 @@ sys.path.insert(0, "../..")
 if sys.version_info[0] >= 3:
     raw_input = input
 
-reserved = (
-    'true', 'boileano', 'entonces', 'false', 'vector', 'sino', 'entero', 'long', 'finsi', 'real', 'mientras', 'and', 'finmientras',
-    'si', 'or', 'not'
-)
-tokens = reserved+(
-    'NAME', 'ENTERO', 'DECIMAL' , 'HEXADECIMAL', 'OCTAL' , 'NOTCIENT', 'FCIENT', 'SALTO'
+#Palabras reservadas
+reserved = {
+        'true': 'true',
+        'booleano': 'booleano',
+        'entonces': 'entonces',
+        'false': 'false',
+        'vector': 'vector',
+        'sino': 'sino',
+        'entero': 'entero',
+        'long': 'long',
+        'finsi': 'finsi',
+        'real': 'real',
+        'mientras': 'mientras',
+        'and': 'and',
+        'finmientras': 'finmientras',
+        'si': 'si',
+        'or': 'or',
+        'not': 'not'
+}
+
+states=(
+    ('multilinecomment', 'inclusive'),
 )
 
-literals = ['=', '+', '-', '*', '/', '(', ')']
+tokens = list(reserved.values()) + [
+    'ENTERO', 'DECIMAL' , 'HEXADECIMAL', 'OCTAL' , 'NOTCIENT', 'FCIENT', 'SALTO', 'NOMBRE', 'MAIL', 'DNI', 'MATRICULA', 'ID',
+    'OPERADOR', 'OPERADORARITMETICOLOGICO', 'SEPARADOR', 'ASIGNACION', 'SIMBOLO', 'OR', 'AND', 'NOT', 'XOR', 'LOR', 'LAND', 'LNOT',
+    'LT', 'GT', 'LE', 'GE', 'EQ', 'NE', 'AUTORES', 'BLANKSPACE', 'MULTILINECOMMENT', 'COMMENT', 'RESERVADAS'
+]
 
 # Tokens
+t_OR = r'\|'
+t_AND = r'\&'
+t_NOT = r'\~'
+t_XOR = r'\^'
+t_LOR = r'\|\|'
+t_LAND = r'\&\&'
+t_LNOT = r'\!'
+t_LT = r'\<'
+t_GT = r'\>'
+t_LE = r'\<='
+t_GE = r'\>='
+t_EQ = r'\=='
+t_NE = r'\!='
+operadoraritmeticologico = t_OR+r'|'+t_AND+r'|'+t_NOT+r'|'+t_XOR+r'|'+t_LOR+r'|'+t_LAND+r'|'+t_LNOT+r'|'+t_LT+r'|'+t_GT+r'|'+t_LE+r'|'+t_GE+r'|'+t_EQ+r'|'+t_NE
 
-def t_NAME(t):
-    r'MEM_'
+def t_NOMBRE(self,t):
+    r'\#\#[A-Z][a-z]+\s[A-Z][a-z]+\s[A-Z][a-z]+\n'
+    return t
+def t_MAIL(self,t):
+    r'\#\#[a-zA-z\_\-\.]+\@[a-z]+\.[a-z]{2,3}'
+    return t
+def t_DNI(self,t):
+    r'\#\#[0-9]{8}[A-Z]{1}'
+    return t
+def t_MATRICULA(self,t):
+    r'\#\#[0-9]{4}[B-DF-HJ-NP-TV-Z]{3}'
+    return t
+def t_multilinecomment(self, t):
+    r'<!--'
+    t.lexer.code_start = t.lexer.lexpos-4
+    t.lexer.begin('multilinecomment')
+
+def t_multilinecomment_end(self, t):
+    r'.*-+->[\n]?'
+    t.lexer.begin('INITIAL')
+    t.value = t.lexer.lexdata[t.lexer.code_start:t.lexer.lexpos]
+    t.type = 'MULTILINECOMMENT'
     return t
 
+def t_multilinecomment_lbrace(self, t):
+    r'.*[^-->]'
 
-def t_SALTO(t):
-    r'\n+'
+@TOKEN(operadoraritmeticologico)
+def t_OPERADORARITMETICOLOGICO(self, t):
     return t
 
-def t_FCIENT(t):
+def t_COMMENT(self, t):
+    r'[\%\%|\#].*[^\n]?'
+    return t
+
+def t_ID(self, t):
+    r'[a-zA-Z_][a-zA-Z_0-9]*'
+    if self.reserved.get(t.value.lower()) is not None:
+        t.type=t.value.lower()
+    return t
+
+def t_SALTO(self, t):
+    r'\n'
+    return t
+
+def t_FCIENT(self, t):
     r'log|exp|sin|cos'
     return t
 
-def t_NOTCIENT(t):
+def t_NOTCIENT(self, t):
     r'\d+(\.\d*)?[e|E]-?\d+'
-    try:
-        t.value = float(t.value)
-    except ValueError:
-        print("Number is wrong", t.value)
-        t.value = 0
     return t
 
-
-def t_HEXADECIMAL(t):
+def t_HEXADECIMAL(self, t):
     r'0[x|X][0-9a-fA-F]+'
-    try:
-        t.value = int(t.value, 16)
-    except ValueError:
-        print("Hexadecimal number is wrong", t.value)
-        t.value = 0
     return t
 
-def t_OCTAL(t):
+def t_OCTAL(self, t):
     r'0[o|O][0-7]+'
-    try:
-        t.value = int(t.value,8)
-    except ValueError:
-        print("Octal number is wrong", t.value)
-        t.value = 0
     return t
 
-
-def t_DECIMAL(t):
-    r'[\d+]?\.[\d+]?'
-    try:
-        t.value = float(t.value)
-    except ValueError:
-        print("Float value too large", t.value)
-        t.value = 0
+def t_DECIMAL(self, t):
+    r'[\d+]?\.[\d+]'
     return t
 
-
-def t_ENTERO(t):
+def t_ENTERO(self, t):
     r'\d+'
-    try:
-        t.value = int(t.value)
-    except ValueError:
-        print("Integer value too large %d", t.value)
-        t.value = 0
     return t
 
-t_ignore = " \t"
+def t_BLANKSPACE(self, t):
+    r'\s|\t'
+    return t
 
-def t_wrong(t):
-    r'[A-Za-z]+\_?[A-Za-z]+?[1-9]+?\=.+'
-    print("Error de asignación")
-    t.lexer.skip(1)
+def t_OPERADOR(self, t):
+    r'\+|\-|\*|\/'
+    return t
 
-def t_comment(t):
-    r'[ ]*%%.*[^\n]?'
-    pass
+def t_ASIGNACION(self, t):
+    r'\='
+    return t
 
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += t.value.count("\n")
+def t_SEPARADOR(self, t):
+    r'\(|\)|\[|\]|\;|\:|\.'
+    return t
 
-def t_error(t):
+def t_error(self, t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
 
