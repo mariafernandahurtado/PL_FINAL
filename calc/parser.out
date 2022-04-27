@@ -12,13 +12,13 @@ Rule 0     S' -> sentencias
 Rule 1     sentencias -> statement SALTO sentencias
 Rule 2     sentencias -> statement
 Rule 3     statement -> VARTYPE declaration
-Rule 4     declaration -> identificador
-Rule 5     declaration -> declaration , declaration
-Rule 6     identificador -> ID
-Rule 7     statement -> VARTYPE ID = expressionSR
-Rule 8     statement -> ID = expressionSR
-Rule 9     statement -> expressionSR
-Rule 10    statement -> expressionLOG BOOLEANO expressionLOG
+Rule 4     statement -> VARTYPE ID = expressionSR
+Rule 5     statement -> ID = expressionSR
+Rule 6     statement -> expressionSR
+Rule 7     statement -> expressionLOG BOOLEANO expressionLOG
+Rule 8     declaration -> identificador
+Rule 9     declaration -> declaration , declaration
+Rule 10    identificador -> ID
 Rule 11    expressionLOG -> expressionSR LT expressionSR
 Rule 12    expressionLOG -> expressionSR GT expressionSR
 Rule 13    statement -> <empty>
@@ -46,35 +46,35 @@ Terminals, with rules where they appear
 )                    : 21 29
 *                    : 18
 +                    : 14 23
-,                    : 5
+,                    : 9
 -                    : 15 22
 /                    : 19
-=                    : 7 8
+=                    : 4 5
 ASIGNACION           : 
-BOOLEANO             : 10
+BOOLEANO             : 7
 DECIMAL              : 25
 ENTERO               : 24
 FCIENT               : 29
 GT                   : 12
-ID                   : 6 7 8 30
+ID                   : 4 5 10 30
 LT                   : 11
 NOTCIENT             : 27
 OCTAL                : 28
 SALTO                : 1
 SEPARADOR            : 
 SIMBOLO              : 
-VARTYPE              : 3 7
+VARTYPE              : 3 4
 V_BOOLEAN            : 26
 error                : 
 
 Nonterminals, with rules where they appear
 
-declaration          : 3 5 5
+declaration          : 3 9 9
 expression           : 18 19 20 22 23
-expressionLOG        : 10 10 17
+expressionLOG        : 7 7 17
 expressionMD         : 14 15 16 18 19
-expressionSR         : 7 8 9 11 11 12 12 14 15 21 29
-identificador        : 4
+expressionSR         : 4 5 6 11 11 12 12 14 15 21 29
+identificador        : 8
 sentencias           : 1 0
 statement            : 1 2
 
@@ -86,10 +86,10 @@ state 0
     (1) sentencias -> . statement SALTO sentencias
     (2) sentencias -> . statement
     (3) statement -> . VARTYPE declaration
-    (7) statement -> . VARTYPE ID = expressionSR
-    (8) statement -> . ID = expressionSR
-    (9) statement -> . expressionSR
-    (10) statement -> . expressionLOG BOOLEANO expressionLOG
+    (4) statement -> . VARTYPE ID = expressionSR
+    (5) statement -> . ID = expressionSR
+    (6) statement -> . expressionSR
+    (7) statement -> . expressionLOG BOOLEANO expressionLOG
     (13) statement -> .
     (14) expressionSR -> . expressionSR + expressionMD
     (15) expressionSR -> . expressionSR - expressionMD
@@ -150,10 +150,10 @@ state 2
 state 3
 
     (3) statement -> VARTYPE . declaration
-    (7) statement -> VARTYPE . ID = expressionSR
-    (4) declaration -> . identificador
-    (5) declaration -> . declaration , declaration
-    (6) identificador -> . ID
+    (4) statement -> VARTYPE . ID = expressionSR
+    (8) declaration -> . identificador
+    (9) declaration -> . declaration , declaration
+    (10) identificador -> . ID
 
     ID              shift and go to state 20
 
@@ -162,7 +162,7 @@ state 3
 
 state 4
 
-    (8) statement -> ID . = expressionSR
+    (5) statement -> ID . = expressionSR
     (30) expression -> ID .
 
     =               shift and go to state 22
@@ -178,14 +178,14 @@ state 4
 
 state 5
 
-    (9) statement -> expressionSR .
+    (6) statement -> expressionSR .
     (14) expressionSR -> expressionSR . + expressionMD
     (15) expressionSR -> expressionSR . - expressionMD
     (11) expressionLOG -> expressionSR . LT expressionSR
     (12) expressionLOG -> expressionSR . GT expressionSR
 
-    SALTO           reduce using rule 9 (statement -> expressionSR .)
-    $end            reduce using rule 9 (statement -> expressionSR .)
+    SALTO           reduce using rule 6 (statement -> expressionSR .)
+    $end            reduce using rule 6 (statement -> expressionSR .)
     +               shift and go to state 23
     -               shift and go to state 24
     LT              shift and go to state 25
@@ -194,7 +194,7 @@ state 5
 
 state 6
 
-    (10) statement -> expressionLOG . BOOLEANO expressionLOG
+    (7) statement -> expressionLOG . BOOLEANO expressionLOG
     (17) expressionSR -> expressionLOG .
 
     BOOLEANO        shift and go to state 27
@@ -426,10 +426,10 @@ state 18
     (1) sentencias -> . statement SALTO sentencias
     (2) sentencias -> . statement
     (3) statement -> . VARTYPE declaration
-    (7) statement -> . VARTYPE ID = expressionSR
-    (8) statement -> . ID = expressionSR
-    (9) statement -> . expressionSR
-    (10) statement -> . expressionLOG BOOLEANO expressionLOG
+    (4) statement -> . VARTYPE ID = expressionSR
+    (5) statement -> . ID = expressionSR
+    (6) statement -> . expressionSR
+    (7) statement -> . expressionLOG BOOLEANO expressionLOG
     (13) statement -> .
     (14) expressionSR -> . expressionSR + expressionMD
     (15) expressionSR -> . expressionSR - expressionMD
@@ -475,7 +475,7 @@ state 18
 state 19
 
     (3) statement -> VARTYPE declaration .
-    (5) declaration -> declaration . , declaration
+    (9) declaration -> declaration . , declaration
 
     SALTO           reduce using rule 3 (statement -> VARTYPE declaration .)
     $end            reduce using rule 3 (statement -> VARTYPE declaration .)
@@ -484,27 +484,27 @@ state 19
 
 state 20
 
-    (7) statement -> VARTYPE ID . = expressionSR
-    (6) identificador -> ID .
+    (4) statement -> VARTYPE ID . = expressionSR
+    (10) identificador -> ID .
 
     =               shift and go to state 38
-    ,               reduce using rule 6 (identificador -> ID .)
-    SALTO           reduce using rule 6 (identificador -> ID .)
-    $end            reduce using rule 6 (identificador -> ID .)
+    ,               reduce using rule 10 (identificador -> ID .)
+    SALTO           reduce using rule 10 (identificador -> ID .)
+    $end            reduce using rule 10 (identificador -> ID .)
 
 
 state 21
 
-    (4) declaration -> identificador .
+    (8) declaration -> identificador .
 
-    ,               reduce using rule 4 (declaration -> identificador .)
-    SALTO           reduce using rule 4 (declaration -> identificador .)
-    $end            reduce using rule 4 (declaration -> identificador .)
+    ,               reduce using rule 8 (declaration -> identificador .)
+    SALTO           reduce using rule 8 (declaration -> identificador .)
+    $end            reduce using rule 8 (declaration -> identificador .)
 
 
 state 22
 
-    (8) statement -> ID = . expressionSR
+    (5) statement -> ID = . expressionSR
     (14) expressionSR -> . expressionSR + expressionMD
     (15) expressionSR -> . expressionSR - expressionMD
     (16) expressionSR -> . expressionMD
@@ -683,7 +683,7 @@ state 26
 
 state 27
 
-    (10) statement -> expressionLOG BOOLEANO . expressionLOG
+    (7) statement -> expressionLOG BOOLEANO . expressionLOG
     (11) expressionLOG -> . expressionSR LT expressionSR
     (12) expressionLOG -> . expressionSR GT expressionSR
     (14) expressionSR -> . expressionSR + expressionMD
@@ -899,10 +899,10 @@ state 36
 
 state 37
 
-    (5) declaration -> declaration , . declaration
-    (4) declaration -> . identificador
-    (5) declaration -> . declaration , declaration
-    (6) identificador -> . ID
+    (9) declaration -> declaration , . declaration
+    (8) declaration -> . identificador
+    (9) declaration -> . declaration , declaration
+    (10) identificador -> . ID
 
     ID              shift and go to state 51
 
@@ -911,7 +911,7 @@ state 37
 
 state 38
 
-    (7) statement -> VARTYPE ID = . expressionSR
+    (4) statement -> VARTYPE ID = . expressionSR
     (14) expressionSR -> . expressionSR + expressionMD
     (15) expressionSR -> . expressionSR - expressionMD
     (16) expressionSR -> . expressionMD
@@ -950,14 +950,14 @@ state 38
 
 state 39
 
-    (8) statement -> ID = expressionSR .
+    (5) statement -> ID = expressionSR .
     (14) expressionSR -> expressionSR . + expressionMD
     (15) expressionSR -> expressionSR . - expressionMD
     (11) expressionLOG -> expressionSR . LT expressionSR
     (12) expressionLOG -> expressionSR . GT expressionSR
 
-    SALTO           reduce using rule 8 (statement -> ID = expressionSR .)
-    $end            reduce using rule 8 (statement -> ID = expressionSR .)
+    SALTO           reduce using rule 5 (statement -> ID = expressionSR .)
+    $end            reduce using rule 5 (statement -> ID = expressionSR .)
     +               shift and go to state 23
     -               shift and go to state 24
     LT              shift and go to state 25
@@ -1056,11 +1056,11 @@ state 43
 
 state 44
 
-    (10) statement -> expressionLOG BOOLEANO expressionLOG .
+    (7) statement -> expressionLOG BOOLEANO expressionLOG .
     (17) expressionSR -> expressionLOG .
 
-    SALTO           reduce using rule 10 (statement -> expressionLOG BOOLEANO expressionLOG .)
-    $end            reduce using rule 10 (statement -> expressionLOG BOOLEANO expressionLOG .)
+    SALTO           reduce using rule 7 (statement -> expressionLOG BOOLEANO expressionLOG .)
+    $end            reduce using rule 7 (statement -> expressionLOG BOOLEANO expressionLOG .)
     LT              reduce using rule 17 (expressionSR -> expressionLOG .)
     GT              reduce using rule 17 (expressionSR -> expressionLOG .)
     +               reduce using rule 17 (expressionSR -> expressionLOG .)
@@ -1145,36 +1145,36 @@ state 49
 
 state 50
 
-    (5) declaration -> declaration , declaration .
-    (5) declaration -> declaration . , declaration
+    (9) declaration -> declaration , declaration .
+    (9) declaration -> declaration . , declaration
 
   ! shift/reduce conflict for , resolved as shift
-    SALTO           reduce using rule 5 (declaration -> declaration , declaration .)
-    $end            reduce using rule 5 (declaration -> declaration , declaration .)
+    SALTO           reduce using rule 9 (declaration -> declaration , declaration .)
+    $end            reduce using rule 9 (declaration -> declaration , declaration .)
     ,               shift and go to state 37
 
-  ! ,               [ reduce using rule 5 (declaration -> declaration , declaration .) ]
+  ! ,               [ reduce using rule 9 (declaration -> declaration , declaration .) ]
 
 
 state 51
 
-    (6) identificador -> ID .
+    (10) identificador -> ID .
 
-    ,               reduce using rule 6 (identificador -> ID .)
-    SALTO           reduce using rule 6 (identificador -> ID .)
-    $end            reduce using rule 6 (identificador -> ID .)
+    ,               reduce using rule 10 (identificador -> ID .)
+    SALTO           reduce using rule 10 (identificador -> ID .)
+    $end            reduce using rule 10 (identificador -> ID .)
 
 
 state 52
 
-    (7) statement -> VARTYPE ID = expressionSR .
+    (4) statement -> VARTYPE ID = expressionSR .
     (14) expressionSR -> expressionSR . + expressionMD
     (15) expressionSR -> expressionSR . - expressionMD
     (11) expressionLOG -> expressionSR . LT expressionSR
     (12) expressionLOG -> expressionSR . GT expressionSR
 
-    SALTO           reduce using rule 7 (statement -> VARTYPE ID = expressionSR .)
-    $end            reduce using rule 7 (statement -> VARTYPE ID = expressionSR .)
+    SALTO           reduce using rule 4 (statement -> VARTYPE ID = expressionSR .)
+    $end            reduce using rule 4 (statement -> VARTYPE ID = expressionSR .)
     +               shift and go to state 23
     -               shift and go to state 24
     LT              shift and go to state 25

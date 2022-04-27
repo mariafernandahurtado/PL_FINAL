@@ -236,31 +236,6 @@ def get_var(vars,nums):
     return nums
 
 
-def p_declaracion_variables(p):
-    '''declaration : identificador
-                    |  declaration ',' declaration '''
-
-    if len(p)==4:
-        #print("Multiple declaracion")
-        p[0]=[]
-        p[0].append(p[1])
-        p[0].append(p[3])
-        #print(p[0])
-
-    else:
-        p[0]=p[1]
-
-    #print("Declaration ",p[0:])
-
-def p_statement_declarationSimple(p):
-    """identificador : ID"""
-
-    if p[1] in names.keys():
-        print("Variable definida anteriormente")
-    else:
-        p[0]=p[1]
-    #print("ID: ",p[0:])
-
 def p_statement_dec_assign(p):
     """statement : VARTYPE ID '=' expressionSR"""
     if p[2] not in names.keys():
@@ -301,6 +276,33 @@ def p_statement_boolean(p):
         else:
             p[0]=False
     print(p[1])
+
+
+def p_declaracion_variables(p):
+    '''declaration : identificador
+                    |  declaration ',' declaration '''
+
+    if len(p)==4:
+        #print("Multiple declaracion")
+        p[0]=[]
+        p[0].append(p[1])
+        p[0].append(p[3])
+        #print(p[0])
+
+    else:
+        p[0]=p[1]
+
+    #print("Declaration ",p[0:])
+
+def p_statement_declarationSimple(p):
+    """identificador : ID"""
+
+    if p[1] in names.keys():
+        print("Variable definida anteriormente")
+    else:
+        p[0]=p[1]
+    #print("ID: ",p[0:])
+
 
 def p_expressionLOG(p):
     '''expressionLOG : expressionSR LT expressionSR

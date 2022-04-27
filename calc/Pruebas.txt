@@ -21,4 +21,6 @@ FLOAT var7,var8,W, Z,V,bien
 
 FLOAT Z=0
 
+FLOAT result= var1+var7
+
 
