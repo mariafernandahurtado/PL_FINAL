@@ -17,7 +17,7 @@ var1=2
 var1
 
 
-FLOAT var7,var8,W,Y
+FLOAT var7,var8,W, Z,V,bien
 
 FLOAT Z=0
 

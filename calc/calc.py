@@ -206,6 +206,7 @@ def p_statement_sl_statement(p):
 
 def p_statement_declaration(p):
     '''statement : VARTYPE declaration'''
+    numeros=[]
     if type(p[2]) == str:
         if p[1] == "ENTERO":
             names[p[2]] = 0
@@ -215,9 +216,8 @@ def p_statement_declaration(p):
             names[p[2]] = False
     else:
 
-        numeros=get_var_in_list(p[2])
-
-        for var in numeros:
+        num=get_var(p[2],numeros)
+        for var in num:
             if p[1] == "ENTERO":
                 names[var] = 0
             elif p[1] == "FLOAT":
@@ -225,18 +225,16 @@ def p_statement_declaration(p):
             elif p[1] == "BOOLEAN":
                 names[var] = False
 
-def get_var_in_list(vars):
-    numeros = []
-    for items in vars:
 
-        if type(items) == list:
-            for vars in list(items):
-                numeros.append(vars)
-                print("Numeros ", numeros)
-        else:
-            numeros.append(items)
+def get_var(vars,nums):
+    if type(vars[1])==list:
+        nums.append(vars[0])
+        get_var(vars[1],nums)
+    else:
+        nums.append(vars[0])
+        nums.append(vars[1])
+    return nums
 
-    return numeros
 
 def p_declaracion_variables(p):
     '''declaration : identificador
