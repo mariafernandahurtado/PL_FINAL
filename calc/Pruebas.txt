@@ -16,9 +16,9 @@ var1
 var1=2
 var1
 
-BOOLEAN a
-a=0
-a
 
+FLOAT var7,var8,W,Y
+
+FLOAT Z=0
 
 

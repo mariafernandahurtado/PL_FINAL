@@ -206,20 +206,53 @@ def p_statement_sl_statement(p):
 
 def p_statement_declaration(p):
     '''statement : VARTYPE declaration'''
-    if p[1] == "ENTERO":
-        names[p[2]] = 0
-    elif p[1] == "FLOAT":
-        names[p[2]] = 0.0
-    elif p[1] == "BOOLEAN":
-        names[p[2]] = False
+    if type(p[2]) == str:
+        if p[1] == "ENTERO":
+            names[p[2]] = 0
+        elif p[1] == "FLOAT":
+            names[p[2]] = 0.0
+        elif p[1] == "BOOLEAN":
+            names[p[2]] = False
+    else:
 
+        numeros=get_var_in_list(p[2])
+
+        for var in numeros:
+            if p[1] == "ENTERO":
+                names[var] = 0
+            elif p[1] == "FLOAT":
+                names[var] = 0.0
+            elif p[1] == "BOOLEAN":
+                names[var] = False
+
+def get_var_in_list(vars):
+    numeros = []
+    for items in vars:
+
+        if type(items) == list:
+            for vars in list(items):
+                numeros.append(vars)
+                print("Numeros ", numeros)
+        else:
+            numeros.append(items)
+
+    return numeros
 
 def p_declaracion_variables(p):
-    '''declaration : identificador'''
-                    #|  declaration ',' declaration '''
+    '''declaration : identificador
+                    |  declaration ',' declaration '''
 
-    p[0]=p[1]
+    if len(p)==4:
+        #print("Multiple declaracion")
+        p[0]=[]
+        p[0].append(p[1])
+        p[0].append(p[3])
+        #print(p[0])
 
+    else:
+        p[0]=p[1]
+
+    #print("Declaration ",p[0:])
 
 def p_statement_declarationSimple(p):
     """identificador : ID"""
@@ -228,7 +261,7 @@ def p_statement_declarationSimple(p):
         print("Variable definida anteriormente")
     else:
         p[0]=p[1]
-
+    #print("ID: ",p[0:])
 
 def p_statement_dec_assign(p):
     """statement : VARTYPE ID '=' expressionSR"""
@@ -386,3 +419,4 @@ while 1:
     if not s:
         break
     yacc.parse(s)
+    print(names)
