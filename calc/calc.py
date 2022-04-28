@@ -280,7 +280,7 @@ def p_statement_boolean(p):
 
 def p_declaracion_variables(p):
     '''declaration : identificador
-                    |  declaration ',' declaration '''
+                    |  identificador ',' declaration '''
 
     if len(p)==4:
         #print("Multiple declaracion")

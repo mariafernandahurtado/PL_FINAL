@@ -23,4 +23,4 @@ FLOAT Z=0
 
 FLOAT result= var1+var7
 
-
+(var7<var1)
