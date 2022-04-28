@@ -101,7 +101,6 @@ def t_VARTYPE(t):
     r' ENTERO | FLOAT | REAL | BOOLEAN | LONG | VECTOR '
     return t
 
-
 def t_BOOLEANO(t):
     r'AND|NOT|OR'
     return t
@@ -111,7 +110,8 @@ def t_V_BOOLEAN(t):
     return t
 
 def t_COMMENT(t):
-    r'[\%\%|\#].*[^\n]?'
+    r'[\%\%|\#].*'
+    #le he quitado lo del sato de linea al final
     pass
 
 def t_ID(t):
@@ -255,11 +255,16 @@ def p_statement_assign(p):
 
     
 def p_statement_expr(p):
-    '''statement : expressionSR'''
+    '''statement : expressionSR
+                    | boolean'''
     print(p[1])
 
+def p_boolean_single(p):
+    '''boolean : expressionLOG'''
+    p[0] = p[1]
+
 def p_statement_boolean(p):
-    '''statement :  expressionLOG BOOLEANO expressionLOG'''
+    '''boolean :  expressionLOG BOOLEANO boolean'''
     if p[2] == "AND":
         if p[1] is True and p[3] is True:
             p[0]=True
@@ -308,12 +313,12 @@ def p_expressionLOG(p):
     '''expressionLOG : expressionSR LT expressionSR
                         | expressionSR GT expressionSR'''
 
-    if p[2]=="<":
+    if p[2]=='<':
         if p[1] < p[3]:
             p[0]=True #no se si hay que poner esto o return True
         else:
             p[0]= False
-    elif p[2]==">":
+    elif p[2]=='>':
         if p[1] > p[3]:
             p[0]=True #no se si hay que poner esto o return True
         else:
@@ -332,8 +337,8 @@ def p_expression_binop(p):
         p[0] = p[1] - p[3]
 
 def p_expressionSR_expressionMD(p):
-    '''expressionSR : expressionMD
-                    | expressionLOG'''
+    '''expressionSR : expressionMD'''
+
     p[0] = p[1]
 
 def p_expression_opmd(p):
