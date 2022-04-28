@@ -41,7 +41,7 @@ states=(
 tokens = [
     'ENTERO', 'DECIMAL', 'V_BOOLEAN','OCTAL' , 'NOTCIENT', 'FCIENT', 'SALTO', 'ID',
     'SEPARADOR', 'ASIGNACION', 'SIMBOLO',
-    'BOOLEANO', 'LT','GT' , 'VARTYPE'
+    'BOOLEANO', 'LT','GT','LE','GE','EQ', 'VARTYPE'
 ]
 literals = ['=', '+', '-', '*', '/', '(', ')', ';', ',']
 
@@ -52,9 +52,9 @@ t_AND = r'AND'
 t_NOT = r'NOT'
 #t_LT = r'\<'
 #t_GT = r'\>'
-t_LE = r'\<='
-t_GE = r'\>='
-t_EQ = r'\=='
+#t_LE = r'\<='
+#t_GE = r'\>='
+#t_EQ = r'\=='
 operadoraritmeticologico = t_OR+r'|'+t_AND+r'|'+t_NOT+r'|'+t_LT+r'|'+t_GT+r'|'+t_LE+r'|'+t_GE+r'|'+t_EQ
 """
 """
@@ -94,11 +94,15 @@ def t_multilinecomment_lbrace(t):
 def t_OPERADORARITMETICOLOGICO(t):
     return t
 """
+
 t_LT = r'\<'
 t_GT = r'\>'
+t_LE = r'\<='
+t_GE = r'\>='
+t_EQ = r'\=='
 
 def t_VARTYPE(t):
-    r' ENTERO | FLOAT | REAL | BOOLEAN | LONG | VECTOR '
+    r' ENTERO | FLOAT | REAL | BOOLEANO | LONG | VECTOR '
     return t
 
 def t_BOOLEANO(t):
@@ -116,6 +120,7 @@ def t_COMMENT(t):
 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
+
     if reserved.get(t.value.lower()) is None:
         #t.type=t.value.lower()
         return t
@@ -207,24 +212,34 @@ def p_statement_sl_statement(p):
 def p_statement_declaration(p):
     '''statement : VARTYPE declaration'''
     numeros=[]
-    if type(p[2]) == str:
-        if p[1] == "ENTERO":
-            names[p[2]] = 0
-        elif p[1] == "FLOAT":
-            names[p[2]] = 0.0
-        elif p[1] == "BOOLEAN":
-            names[p[2]] = False
+    if p[2] ==None:
+        pass
     else:
+        if type(p[2]) == str :
 
-        num=get_var(p[2],numeros)
-        for var in num:
             if p[1] == "ENTERO":
-                names[var] = 0
+                names[p[2]] = 0
             elif p[1] == "FLOAT":
-                names[var] = 0.0
-            elif p[1] == "BOOLEAN":
-                names[var] = False
+                names[p[2]] = 0.0
+            elif p[1] == "BOOLEANO":
+                names[p[2]] = False
+            else:
+                names[p[2]]=0
+        else:
+            num=get_var(p[2],numeros)
 
+            for var in num:
+
+                if p[1] == "ENTERO":
+                    names[var] = 0
+                elif p[1] == "FLOAT":
+                    names[var] = 0.0
+                elif p[1] == "BOOLEANO":
+                    names[var] = False
+                else:
+                    names[var]=0
+            p[0]=p[2] #-----------------------------------------Necesario??????
+        #print("----",p[0])
 
 def get_var(vars,nums):
     if type(vars[1])==list:
@@ -242,10 +257,11 @@ def p_statement_dec_assign(p):
         names[p[2]]=p[4]
         p[2] = p[4]
     else:
-        print("Variable definida anteriormente")
+        print("Variable definida anteriormente: ",p[2])
 
 def p_statement_assign(p):
-    """statement : ID '=' expressionSR """
+    """statement : ID '=' expressionSR
+                | ID '=' boolean"""
     if p[1] in names.keys():
         names[p[1]] = p[3]
         p[1] = p[3]
@@ -292,18 +308,16 @@ def p_declaracion_variables(p):
         p[0]=[]
         p[0].append(p[1])
         p[0].append(p[3])
-        #print(p[0])
-
     else:
         p[0]=p[1]
-
-    #print("Declaration ",p[0:])
+        #print("Declaration ",p[0])
 
 def p_statement_declarationSimple(p):
     """identificador : ID"""
 
     if p[1] in names.keys():
-        print("Variable definida anteriormente")
+        print("Variable definida anteriormente: ",p[1])
+        p[0]=None
     else:
         p[0]=p[1]
     #print("ID: ",p[0:])
@@ -311,7 +325,10 @@ def p_statement_declarationSimple(p):
 
 def p_expressionLOG(p):
     '''expressionLOG : expressionSR LT expressionSR
-                        | expressionSR GT expressionSR'''
+                        | expressionSR GT expressionSR
+                        | expressionSR LE expressionSR
+                        | expressionSR GE expressionSR
+                        | expressionSR EQ expressionSR'''
 
     if p[2]=='<':
         if p[1] < p[3]:
@@ -323,7 +340,21 @@ def p_expressionLOG(p):
             p[0]=True #no se si hay que poner esto o return True
         else:
             p[0]= False
-
+    elif p[2]=="<=":
+        if p[1] <= p[3]:
+            p[0] = True  # no se si hay que poner esto o return True
+        else:
+            p[0] = False
+    elif p[2]==">=":
+        if p[1] >= p[3]:
+            p[0] = True  # no se si hay que poner esto o return True
+        else:
+            p[0] = False
+    elif p[2]=="==":
+        if p[1] == p[3]:
+            p[0] = True  # no se si hay que poner esto o return True
+        else:
+            p[0] = False
 
 def p_statement_sl(p):
     'statement : \n'
@@ -411,7 +442,7 @@ def p_error(p):
 import ply.yacc as yacc
 yacc.yacc()
 
-fname="Pruebas.txt"
+fname="PruebasOficiales.txt"
 try:
     f= open(fname, 'r')
 except IOError:

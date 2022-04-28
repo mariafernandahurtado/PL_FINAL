@@ -1,0 +1,10 @@
+%% Declaraciones
+REAL re1, re2
+BOOLEANO bo %% se asigna el resultado de una expresión
+%% Operaciones
+re1=5 * +3 - 80/10 %% esta expresion debe resultar 7
+re2=10 / 5 * re1 %% esta expresion debe resultar 4
+bo= 5>=3 %% comparación, debe resultar true
+
+REAL miVariable %% repetida
+BOOLEANO miVariable %% error: mismo identificador, aunque tenga otro
