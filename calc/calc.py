@@ -41,9 +41,9 @@ states=(
 tokens = [
     'ENTERO', 'DECIMAL', 'V_BOOLEAN','OCTAL' , 'NOTCIENT', 'FCIENT', 'SALTO', 'ID',
     'SEPARADOR', 'ASIGNACION', 'SIMBOLO',
-    'BOOLEANO', 'LT','GT','LE','GE','EQ', 'VARTYPE'
+    'BOOLEANO', 'LT','GT','LE','GE','EQ', 'VARTYPE','VECTOR'
 ]
-literals = ['=', '+', '-', '*', '/', '(', ')', ';', ',']
+literals = ['=', '+', '-', '*', '/', '(', ')', ';', ',', '[',']']
 
 """
 # Tokens
@@ -102,7 +102,7 @@ t_GE = r'\>='
 t_EQ = r'\=='
 
 def t_VARTYPE(t):
-    r' ENTERO | FLOAT | REAL | BOOLEANO | LONG | VECTOR '
+    r' ENTERO | FLOAT | REAL | BOOLEANO | LONG  '
     return t
 
 def t_BOOLEANO(t):
@@ -118,9 +118,12 @@ def t_COMMENT(t):
     #le he quitado lo del sato de linea al final
     pass
 
+def t_VECTOR(t):
+    r'VECTOR'
+    return t
+
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
-
     if reserved.get(t.value.lower()) is None:
         #t.type=t.value.lower()
         return t
@@ -211,12 +214,11 @@ def p_statement_sl_statement(p):
 
 def p_statement_declaration(p):
     '''statement : VARTYPE declaration'''
-    numeros=[]
+
     if p[2] ==None:
         pass
     else:
         if type(p[2]) == str :
-
             if p[1] == "ENTERO":
                 names[p[2]] = 0
             elif p[1] == "FLOAT":
@@ -226,8 +228,8 @@ def p_statement_declaration(p):
             else:
                 names[p[2]]=0
         else:
+            numeros=[]
             num=get_var(p[2],numeros)
-
             for var in num:
 
                 if p[1] == "ENTERO":
@@ -242,14 +244,30 @@ def p_statement_declaration(p):
         #print("----",p[0])
 
 def get_var(vars,nums):
+
+    #print(vars)
     if type(vars[1])==list:
-        nums.append(vars[0])
+        if vars[0] is not None: nums.append(vars[0])
         get_var(vars[1],nums)
     else:
-        nums.append(vars[0])
-        nums.append(vars[1])
+        for num in vars:
+            if num is not None:
+                nums.append(num)
     return nums
 
+def p_statement_vector(p):
+    """statement : VECTOR VARTYPE declaration"""
+    if p[2] != 'ENTERO' and p[2] != 'REAL' and p[2] != 'BOOLEANO':
+        print(" No se puede declarar un vector con ese tipo")
+    else:
+
+        if type(p[3])==str and p[3]!=None:
+            names[p[3]]=[]
+        else:
+            vectors=[]
+            vectors=get_var(p[3],vectors)
+            for vec in vectors:
+                names[vec]=[]
 
 def p_statement_dec_assign(p):
     """statement : VARTYPE ID '=' expressionSR"""
@@ -275,6 +293,9 @@ def p_statement_expr(p):
                     | boolean'''
     print(p[1])
 
+def p_statement_sl(p):
+    'statement : \n'
+
 def p_boolean_single(p):
     '''boolean : expressionLOG'''
     p[0] = p[1]
@@ -299,6 +320,20 @@ def p_statement_boolean(p):
     print(p[1])
 
 
+def p_declaration_vectors(p):
+    '''declaration : vector
+                        |  vector ',' declaration '''
+    print("Heyyyy",p[0])
+    if len(p) == 4:
+        # print("Multiple declaracion")
+        p[0] = []
+        p[0].append(p[1])
+        p[0].append(p[3])
+    else:
+        p[0] = p[1]
+        # print("Declaration ",p[0])
+
+
 def p_declaracion_variables(p):
     '''declaration : identificador
                     |  identificador ',' declaration '''
@@ -311,6 +346,16 @@ def p_declaracion_variables(p):
     else:
         p[0]=p[1]
         #print("Declaration ",p[0])
+
+def p_vector(p):
+    """vector : ID '[' ENTERO ']' """
+    # Preguntar sobre el tamaño, en python no se pueden declarar arrays con un tamaño determinado
+    if p[1] in names.keys():
+        print("Variable definida anteriormente: ", p[1])
+        p[0] = None
+    else:
+        p[0] = p[1]
+
 
 def p_statement_declarationSimple(p):
     """identificador : ID"""
@@ -356,8 +401,6 @@ def p_expressionLOG(p):
         else:
             p[0] = False
 
-def p_statement_sl(p):
-    'statement : \n'
 
 def p_expression_binop(p):
     '''expressionSR : expressionSR '+' expressionMD

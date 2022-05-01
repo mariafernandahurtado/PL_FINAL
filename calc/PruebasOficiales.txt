@@ -8,3 +8,4 @@ bo= 5>=3 %% comparación, debe resultar true
 
 REAL miVariable %% repetida
 BOOLEANO miVariable %% error: mismo identificador, aunque tenga otro
+

@@ -26,4 +26,3 @@ FLOAT result= var1+var7
 var7<var1 AND 3>1 AND 3<6
 var7=100
 var7==var8
-
