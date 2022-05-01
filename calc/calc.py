@@ -214,7 +214,6 @@ def p_statement_sl_statement(p):
 
 def p_statement_declaration(p):
     '''statement : VARTYPE declaration'''
-
     if p[2] ==None:
         pass
     else:
@@ -323,7 +322,7 @@ def p_statement_boolean(p):
 def p_declaration_vectors(p):
     '''declaration : vector
                         |  vector ',' declaration '''
-    print("Heyyyy",p[0])
+
     if len(p) == 4:
         # print("Multiple declaracion")
         p[0] = []
@@ -485,7 +484,7 @@ def p_error(p):
 import ply.yacc as yacc
 yacc.yacc()
 
-fname="PruebasOficiales.txt"
+fname="Pruebas.txt"
 try:
     f= open(fname, 'r')
 except IOError:
